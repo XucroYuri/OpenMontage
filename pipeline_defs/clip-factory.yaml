@@ -24,6 +24,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/clip-factory/executive-producer
   - pipelines/clip-factory/idea-director
   - pipelines/clip-factory/script-director

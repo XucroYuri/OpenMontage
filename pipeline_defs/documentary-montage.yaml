@@ -30,6 +30,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/documentary-montage/executive-producer
   - pipelines/documentary-montage/idea-director
   - pipelines/documentary-montage/scene-director

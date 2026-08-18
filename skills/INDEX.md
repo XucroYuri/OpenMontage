@@ -286,6 +286,7 @@ Cross-cutting skills that apply to all pipelines:
 
 | Skill | File | Purpose |
 |-------|------|---------|
+| User Language | `meta/user-language.md` | Localize user-facing work while preserving provider prompts, source fidelity, and machine contracts |
 | Onboarding | `meta/onboarding.md` | First-interaction greeting, capability discovery, starter prompts |
 | Reviewer | `meta/reviewer.md` | Self-review protocol after every stage |
 | Checkpoint Protocol | `meta/checkpoint-protocol.md` | When/how to checkpoint and request human approval |

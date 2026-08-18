@@ -23,6 +23,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/localization-dub/executive-producer
   - pipelines/localization-dub/idea-director
   - pipelines/localization-dub/script-director

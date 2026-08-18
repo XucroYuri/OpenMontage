@@ -70,6 +70,30 @@ If `proposal_packet.production_plan.taste_profile` or the active playbook's `tas
 
 At proposal stage, a missing `taste_profile` is a **suggestion** for preset/low-stakes work and a **critical** finding for atelier, product/brand, launch, hero, or custom-playbook work. At scene_plan/edit/compose, treat dial violations as **suggestion** unless they break the approved delivery promise.
 
+### Step 4c: Language and Capability Review
+
+Read `skills/meta/user-language.md` and review the three language layers
+independently:
+
+- **Interaction locale:** decisions, tradeoffs, approvals, costs, progress,
+  warnings, errors, and next steps must be understandable in the configured
+  interaction locale. An approval gate presented only in an unreadable language
+  is a **critical** finding because informed approval is impossible.
+- **Deliverable language:** scripts, narration, dialogue, on-screen copy,
+  subtitles, and publish metadata must match the approved audience language.
+  Unrequested translation or the wrong target language is **critical**.
+- **Provider working language:** recorded prompts and search queries must retain
+  the structure and quality techniques required by the provider skills.
+  Mechanically translated or simplified prompts that discard provider guidance
+  are **critical** before generation and a **suggestion** after generation only
+  when the resulting asset still meets every quality gate.
+
+Also verify that schema keys, enum values, IDs, paths, tool/provider/model names,
+API parameters, and source URLs remain canonical. A translated machine contract,
+a locale-driven provider/model substitution, or any change to stages, tools,
+checkpoints, approvals, review depth, or quality gates is **critical**. Confirm
+that source content was not translated unless the brief explicitly requires it.
+
 ### Step 5: Evaluate Success Criteria
 
 For each `success_criteria` item from the manifest:

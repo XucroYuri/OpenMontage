@@ -28,6 +28,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/animation/executive-producer
   - pipelines/animation/research-director
   - pipelines/animation/proposal-director

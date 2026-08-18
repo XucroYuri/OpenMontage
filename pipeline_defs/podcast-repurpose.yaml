@@ -25,6 +25,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/podcast-repurpose/executive-producer
   - pipelines/podcast-repurpose/idea-director
   - pipelines/podcast-repurpose/script-director

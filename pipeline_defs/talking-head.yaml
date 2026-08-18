@@ -15,6 +15,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/talking-head/executive-producer
   - pipelines/talking-head/idea-director
   - pipelines/talking-head/script-director

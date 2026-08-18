@@ -4,6 +4,8 @@ description: Minimal pipeline manifest used to exercise the Phase 0 framework co
 category: custom
 stability: beta
 default_checkpoint_policy: guided
+required_skills:
+  - meta/user-language
 stages:
   - name: research
     produces:

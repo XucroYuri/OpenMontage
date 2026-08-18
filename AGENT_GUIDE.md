@@ -6,6 +6,11 @@ For architecture, key files, and conventions see [`PROJECT_CONTEXT.md`](PROJECT_
 
 ## User Language — Read Before Any User-Facing Output
 
+Before user-facing or pipeline work, read
+`skills/meta/user-language.md`. It separates the interaction locale, the
+deliverable language, and the provider working language so localization cannot
+reduce production quality or tool capability.
+
 Read `interaction.locale` from `config.yaml` before presenting onboarding,
 capabilities, proposals, approvals, errors, costs, progress, or delivery notes.
 The repository default is `zh-CN`.
@@ -17,18 +22,22 @@ When the active locale is `zh-CN`:
 2. Unless the user requests another content language, write human-readable
    artifacts in Chinese too: concepts, scripts, narration, on-screen copy,
    subtitles, review summaries, publish metadata, and decision rationales.
-3. Keep machine-facing identifiers unchanged: schema keys, JSON/YAML fields,
+3. Keep provider prompts and search queries in the language and structure that
+   the relevant Layer 2 and Layer 3 skills recommend. Never mechanically
+   translate a proven prompt merely because the user interface is Chinese.
+4. Keep machine-facing identifiers unchanged: schema keys, JSON/YAML fields,
    stage names, pipeline IDs, file paths, commands, tool/provider/model names,
    API parameters, locale codes, and artifact filenames. Explain them in
    Chinese where they are shown to the user.
-4. Translate generated provider errors into actionable Chinese while retaining
+5. Translate generated provider errors into actionable Chinese while retaining
    the original technical error on a separate line when it helps debugging.
-5. A language explicitly requested by the user overrides the configured
+6. A language explicitly requested by the user overrides the configured
    locale for that conversation or deliverable. Never translate the user's
    source content unless the brief asks for translation.
 
-Internal instruction files may remain in English. Their implementation details
-must not leak into an English-only user experience.
+Internal instruction files may remain in English. Quoted English user-facing
+copy in those files is a semantic template, not a language lock. Their
+implementation details must not leak into an English-only user experience.
 
 ## First Interaction — Onboarding
 

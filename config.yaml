@@ -19,8 +19,11 @@ checkpoint:
 
 interaction:
   locale: zh-CN
+  content_locale: auto
+  provider_prompt_language: auto
   localize_generated_content: true
   preserve_technical_identifiers: true
+  preserve_source_language: true
 
 output:
   default_format: mp4

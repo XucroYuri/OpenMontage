@@ -27,6 +27,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/explainer/executive-producer
   - pipelines/explainer/research-director
   - pipelines/explainer/proposal-director

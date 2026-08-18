@@ -36,6 +36,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/cinematic/executive-producer
   - pipelines/cinematic/research-director
   - pipelines/cinematic/proposal-director

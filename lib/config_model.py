@@ -47,8 +47,11 @@ class CheckpointConfig(BaseModel):
 
 class InteractionConfig(BaseModel):
     locale: str = "zh-CN"
+    content_locale: str = "auto"
+    provider_prompt_language: str = "auto"
     localize_generated_content: bool = True
     preserve_technical_identifiers: bool = True
+    preserve_source_language: bool = True
 
 
 class OutputConfig(BaseModel):

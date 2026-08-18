@@ -55,6 +55,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/screen-demo/executive-producer
   - pipelines/screen-demo/idea-director
   - pipelines/screen-demo/script-director

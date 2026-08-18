@@ -24,6 +24,7 @@ extensions:
   custom_tools: false
 
 required_skills:
+  - meta/user-language
   - pipelines/avatar-spokesperson/executive-producer
   - pipelines/avatar-spokesperson/idea-director
   - pipelines/avatar-spokesperson/script-director
