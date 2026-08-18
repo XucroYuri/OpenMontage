@@ -17,6 +17,11 @@ checkpoint:
   policy: guided                 # guided | manual_all | auto_noncreative
   storage_dir: pipeline          # relative to project root
 
+interaction:
+  locale: zh-CN
+  localize_generated_content: true
+  preserve_technical_identifiers: true
+
 output:
   default_format: mp4
   default_codec: libx264

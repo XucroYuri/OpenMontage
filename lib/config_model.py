@@ -45,6 +45,12 @@ class CheckpointConfig(BaseModel):
     storage_dir: str = "pipeline"
 
 
+class InteractionConfig(BaseModel):
+    locale: str = "zh-CN"
+    localize_generated_content: bool = True
+    preserve_technical_identifiers: bool = True
+
+
 class OutputConfig(BaseModel):
     default_format: str = "mp4"
     default_codec: str = "libx264"
@@ -68,6 +74,7 @@ class OpenMontageConfig(BaseModel):
     llm: LLMConfig = Field(default_factory=LLMConfig)
     budget: BudgetConfig = Field(default_factory=BudgetConfig)
     checkpoint: CheckpointConfig = Field(default_factory=CheckpointConfig)
+    interaction: InteractionConfig = Field(default_factory=InteractionConfig)
     output: OutputConfig = Field(default_factory=OutputConfig)
     paths: PathsConfig = Field(default_factory=PathsConfig)
 

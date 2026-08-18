@@ -11,6 +11,7 @@ import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -43,7 +44,7 @@ from tools.cost_tracker import CostTracker, BudgetMode, BudgetExceededError, App
 from schemas.artifacts import load_schema, validate_artifact, list_schemas
 
 
-def sample_artifact(name: str) -> dict:
+def sample_artifact(name: str) -> dict[str, Any]:
     """Return a minimal schema-valid artifact for tests."""
     if name == "research_brief":
         return {
@@ -258,10 +259,14 @@ class TestConfig:
         assert config.llm.provider == "anthropic"
         assert config.budget.mode.value == "warn"
         assert config.checkpoint.policy.value == "guided"
+        assert config.interaction.locale == "zh-CN"
+        assert config.interaction.localize_generated_content is True
+        assert config.interaction.preserve_technical_identifiers is True
 
     def test_load_from_yaml(self):
         config = OpenMontageConfig.load()
         assert config.budget.total_usd == 10.0
+        assert config.interaction.locale == "zh-CN"
 
 
 # ---- Schemas ----
