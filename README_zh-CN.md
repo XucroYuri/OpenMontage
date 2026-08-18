@@ -9,6 +9,8 @@
 
 <h1 align="center">OpenMontage</h1>
 
+<p align="center">简体中文 · <a href="README.md">English</a></p>
+
 <p align="center"><strong>首个开源的，代理化（agentic）的视频制作系统</strong></p>
 
 <p align="center">
@@ -17,8 +19,8 @@
   <a href="#尝试这些提示词">尝试这些提示词</a> &nbsp;·&nbsp;
   <a href="#流水线">流水线</a> &nbsp;·&nbsp;
   <a href="#工作原理">工作原理</a> &nbsp;·&nbsp;
-  <a href="docs/PROVIDERS.md">提供商</a> &nbsp;·&nbsp;
-  <a href="AGENT_GUIDE.md">智能体指南</a>
+  <a href="#添加-api-密钥可选--密钥越多--工具越多">提供商配置</a> &nbsp;·&nbsp;
+  <a href="#中文使用说明">中文使用说明</a>
 </p>
 
 <p align="center">
@@ -40,6 +42,12 @@
 ---
 
 将您的 AI 编程助手变成一个完整的视频制作工作室。用通俗的语言描述您的需求——您的智能体会自动处理研究、脚本编写、资产生成、剪辑以及最终合成。
+
+## 中文使用说明
+
+项目默认使用简体中文与用户交流，并让制作看板、审批提示、安装输出以及默认生成的脚本、旁白、字幕和发布文案保持中文。流水线 ID、工具名、模型名、命令、文件路径与 JSON 字段仍保留英文，以确保工具兼容；智能体会在展示这些技术标识时提供中文解释。
+
+制作看板右上角提供 `EN / 中文` 切换，语言偏好会保存在当前浏览器中。如果某个视频需要其他语言，请在需求中直接说明，例如“界面继续用中文，但成片旁白与字幕使用日语”。
 
 **重要的区别：** OpenMontage 可以制作基于图像生成的视频，但它也能为免费/开源工作流制作真正的**原生视频（video video）**：智能体会从免费的免版税素材和开源档案中建立语料库，检索实际的动态画面，将它们剪辑到时间线中，并渲染出成品。这绝非通常那种“让几张静态图片动起来就称为视频”的把戏。
 
@@ -277,7 +285,7 @@ OpenMontage 会在提案阶段在 Remotion 和 HyperFrames 之间进行选择（
 
 > "Make a 90-second animated explainer about quantum computing for middle school students, with a fun narrator voice and custom soundtrack"（制作一部面向中学生的 90 秒量子计算动画解说视频，配有有趣的旁白声音和定制的背景音乐）
 
-想了解更多？查看完整的 **[提示词画廊](PROMPT_GALLERY.md)** 获取经过测试的提示词、预期成本和输出示例，或者运行 `make demo` 立即渲染零密钥的演示视频。
+想了解更多？继续使用上面的中文示例，或者运行 `make demo` 立即渲染零密钥的演示视频。英文原版的完整提示词画廊仍可在 [`PROMPT_GALLERY.md`](PROMPT_GALLERY.md) 中查看，但它不是完成中文工作流的必读内容。
 
 ---
 
@@ -415,7 +423,7 @@ OpenMontage/
 
 ## 支持的提供商
 
-> **包含定价与免费额度的完整设置指南：** [`docs/PROVIDERS.md`](docs/PROVIDERS.md)
+> 本页“添加 API 密钥”与后续提供商表格已经覆盖中文用户开始制作所需的配置。英文原版的深度参考可见 [`docs/PROVIDERS.md`](docs/PROVIDERS.md)，但不是必读内容。
 
 <details>
 <summary><strong>视频生成 — 15 家提供商</strong></summary>

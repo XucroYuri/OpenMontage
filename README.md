@@ -9,6 +9,8 @@
 
 <h1 align="center">OpenMontage</h1>
 
+<p align="center"><a href="README_zh-CN.md">简体中文</a> · English</p>
+
 <p align="center"><strong>The first open-source, agentic video production system.</strong></p>
 
 <p align="center">

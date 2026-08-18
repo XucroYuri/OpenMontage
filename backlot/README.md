@@ -1,5 +1,7 @@
 # Backlot — the living storyboard
 
+[简体中文](README_zh-CN.md) · English
+
 A read-only local board that shows a production happening: pipeline stages
 lighting up, the script as a screenplay page, the scene plan as a filmstrip
 that fills in as assets generate, decisions, spend, and activity — all
