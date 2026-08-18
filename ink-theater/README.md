@@ -1,61 +1,64 @@
+<!-- generated-by: gsd-doc-writer -->
 # Ink Theater
 
-A deterministic, seek-safe engine for hand-drawn **"moving art"** — a minimalist black-ink-on-white world where a deadpan mascot physically *performs* an abstract idea by operating absurd low-tech contraptions. Built for OpenMontage's **atelier** path and rendered through **HyperFrames** (HTML/SVG/CSS + one paused GSAP timeline → MP4).
+**简体中文（主文档）** · [English (secondary)](README.en.md)
 
-Inspired by Ian's `小黑 / Xiaohei` illustration skill (MIT — credit Ian for the technique); this is an original, generic, English, motion-first engine, not a copy.
+一个确定性、可安全跳转的手绘**“动态艺术”**引擎——在极简的白底黑墨世界里，一个面无表情的吉祥物通过操作荒诞的低技术装置，亲自*演绎*抽象概念。它为 OpenMontage 的 **atelier** 路径打造，并通过 **HyperFrames** 渲染（HTML/SVG/CSS + 一条暂停的 GSAP 时间线 → MP4）。
 
-## Why it exists
+灵感来自 Ian 的 `小黑 / Xiaohei` 插画技能（MIT——相关技法归功于 Ian）；这是一个原创、通用、以英文为默认内容且动画优先的引擎，并非复刻。
 
-The illustration style is simple enough that **the illustration IS the animation** — no diffusion model needed. Vector shapes + math give you the whole thing: free, deterministic, infinitely editable, and the character genuinely acts out the concept. This engine turns the research findings (`memory: project_ink_atelier_animation`, deep-research on vector/physics/metaphor foundations) into reusable primitives.
+## 存在的意义
 
-## The five capabilities (`ink-theater.js`, global `InkTheater`)
+这种插画风格足够简洁，**插画本身就是动画**——无需扩散模型。矢量形状 + 数学就能构成完整作品：免费、确定、可无限编辑，而且角色会真正把概念表演出来。该引擎将研究成果（`memory: project_ink_atelier_animation`，以及关于矢量、物理和隐喻基础的深度研究）转化为可复用的原语。
 
-| Module | What it does | Key API |
+## 五项能力（`ink-theater.js`，全局对象 `InkTheater`）
+
+| 模块 | 功能 | 关键 API |
 |---|---|---|
-| **ink strokes** | Confident hand-drawn lines — variable-width brush ribbons + wobbled centerlines | `inkPath(pts, opt)`, `inkRibbon(pts, {width,taper,seed})` |
-| **boil** | Seek-safe hand-drawn line "boil" — steps a `feTurbulence` seed off the timeline (~9fps), NOT SMIL | `boil(turbEl, tl, {duration,fps})` |
-| **spring physics** | Closed-form damped-spring eases (anticipation/overshoot/settle) — pure functions of progress, seek-safe | `springEase({stiffness,damping,mass})`, `ease.{settle,overshoot,bouncy,soft}` |
-| **rig / IK** | 2D FABRIK inverse kinematics + a riggable mascot whose arms reach a target | `fabrik(lengths,origin,target)`, `mascot({x,y,scale})` → `.reachL/.reachR([x,y])` |
-| **contraption grammar** | Parametric composable machine parts | `parts.{crank,gauge,hopper,slot,lever,box}` |
+| **墨线** | 自信的手绘线条——可变宽度的笔刷带 + 摇曳的中心线 | `inkPath(pts, opt)`, `inkRibbon(pts, {width,taper,seed})` |
+| **线条沸动** | 可安全跳转的手绘线条“沸动”——沿时间线分步切换 `feTurbulence` seed（约 9fps），而非 SMIL | `boil(turbEl, tl, {duration,fps})` |
+| **弹簧物理** | 闭式阻尼弹簧缓动（预备/过冲/稳定）——完全由进度决定的纯函数，可安全跳转 | `springEase({stiffness,damping,mass})`, `ease.{settle,overshoot,bouncy,soft}` |
+| **骨架 / IK** | 2D FABRIK 逆向运动学 + 可绑定骨架的吉祥物，双臂可伸向目标 | `fabrik(lengths,origin,target)`, `mascot({x,y,scale})` → `.reachL/.reachR([x,y])` |
+| **装置语法** | 参数化、可组合的机器部件 | `parts.{crank,gauge,hopper,slot,lever,box}` |
 
-## Determinism (HyperFrames render contract)
+## 确定性（HyperFrames 渲染契约）
 
-Every frame must be reproducible from time alone. This engine obeys that:
+每一帧都必须能仅由时间重现。该引擎通过以下方式遵守此契约：
 
-- **Closed-form springs** — `springEase` evaluates an analytic damped-oscillator step response, so any progress `p` maps deterministically (no numeric integration, no accumulated state).
-- **Seek-safe boil** — driven by a GSAP stepped-seed tween on the timeline, never SMIL / render-time clocks.
-- **IK-follow via `onUpdate`** — pose the arm from a target whose position is set by the timeline; GSAP fires `onUpdate` on seek, so it's pure-function-of-time.
-- Seeded PRNG (`rng`) for all "random-looking" wobble — no runtime `Math.random`.
-- No `repeat:-1` (finite counts only), animate only transforms/opacity/attrs.
+- **闭式弹簧**——`springEase` 计算解析形式的阻尼振荡器阶跃响应，因此任意进度 `p` 都能确定性映射（无数值积分、无状态累积）。
+- **可安全跳转的线条沸动**——由时间线上的 GSAP 分步 seed 补间驱动，绝不使用 SMIL / 渲染时钟。
+- **通过 `onUpdate` 跟随 IK**——手臂姿态取决于位置由时间线设置的目标；GSAP 在跳转时会触发 `onUpdate`，因此它是时间的纯函数。
+- 所有“看似随机”的摇曳均使用带 seed 的 PRNG（`rng`）——运行时不使用 `Math.random`。
+- 不使用 `repeat:-1`（仅有限次数），且只动画化 transform/opacity/attrs。
 
-## ⚠ The font gotcha (the REAL root cause)
+## ⚠ 字体陷阱（真正的根因）
 
-Custom handwriting rendered as **serif** in every render for a long time. The cause was **not** SVG-vs-HTML — it was a **font-subset trap**: grabbing one woff2 from the Google Fonts `css2` API (`grep … | head -1`) returns a single *unicode-range subset* (often cyrillic / vietnamese / latin-ext) that is **missing basic-latin (ASCII)**. So every English word silently falls back to serif — while the renderer still logs `Fonts: 1 loaded`. (This means earlier demos whose captions "looked handwritten" were actually serif.)
+长期以来，自定义手写字体在每次渲染中都显示成**衬线体**。根因**并非** SVG 与 HTML 的差异，而是**字体子集陷阱**：从 Google Fonts `css2` API 只抓取一个 woff2（`grep … | head -1`），拿到的是单个 *unicode-range 子集*（通常为 cyrillic / vietnamese / latin-ext），其中**不包含 basic-latin（ASCII）**。因此每个英文单词都会静默回退为衬线体——即使渲染器仍然记录 `Fonts: 1 loaded`。（这意味着早期演示里那些“看起来像手写”的字幕其实是衬线体。）
 
-**Fix (verified):** embed the **full font file** — the TrueType, or a woff2 that actually covers basic-latin:
+**修复方式（已验证）：**嵌入**完整字体文件**——TrueType，或确实覆盖 basic-latin 的 woff2：
 
 ```html
 @font-face { font-family: "InkHand"; src: url("assets/patrickhand.ttf") format("truetype"); font-display: block; }
 ```
 
-A working Patrick Hand TTF ships at **`ink-theater/assets/patrickhand.ttf`** (SIL Open Font License — the license ships beside it as `assets/OFL.txt`; see `THIRD_PARTY_NOTICES.md`) — copy it into your project's `assets/` and use `font-family: "InkHand"`. It renders real handwriting on normal **HTML overlay `<div>`s** (verified — put caption divs over the SVG scene). Don't hot-link Google Fonts (a render-time network fetch breaks determinism); a local `@font-face` file is auto-inlined by the compiler at build time.
+可用的 Patrick Hand TTF 随项目提供，路径为 **`ink-theater/assets/patrickhand.ttf`**（SIL Open Font License——许可证文件位于同目录的 `assets/OFL.txt`；另见 `THIRD_PARTY_NOTICES.md`）——将其复制到项目的 `assets/`，并使用 `font-family: "InkHand"`。它能在普通的 **HTML 叠加层 `<div>`** 上渲染真正的手写体（已验证——将字幕 div 放在 SVG 场景之上）。不要热链接 Google Fonts（渲染时网络请求会破坏确定性）；本地 `@font-face` 文件会在构建时由编译器自动内联。
 
-> Note: HyperFrames also pre-bundles ~18 fonts (none are handwriting) — see `hyperframes-creative/references/typography.md`. For handwriting you must embed your own full font as above.
+> 注意：HyperFrames 还预置了约 18 种字体（均非手写体）——参见 `hyperframes-creative/references/typography.md`。若要使用手写体，必须像上面一样嵌入自己的完整字体。
 
-## Usage in a HyperFrames project
+## 在 HyperFrames 项目中使用
 
-1. Copy `ink-theater.js` into the project root; `<script src="ink-theater.js">` after gsap.
-2. Build the scene programmatically into a mount `<g>`, keep node refs.
-3. Apply `filter="url(#boil)"` to ink groups; call `InkTheater.boil(...)` once.
-4. Captions = HTML overlay divs (see gotcha).
-5. Register one `gsap.timeline({paused:true})` on `window.__timelines["<id>"]`.
+1. 将 `ink-theater.js` 复制到项目根目录；在 gsap 之后引入 `<script src="ink-theater.js">`。
+2. 以编程方式在挂载点 `<g>` 内构建场景，并保留节点引用。
+3. 对墨线组应用 `filter="url(#boil)"`；调用一次 `InkTheater.boil(...)`。
+4. 字幕 = HTML 叠加层 div（参见上面的字体陷阱）。
+5. 在 `window.__timelines["<id>"]` 上注册一条 `gsap.timeline({paused:true})`。
 
-## Ink Puppet — real mocap on a hand-drawn figure (recommended for characters)
+## Ink Puppet——手绘人物的真正动捕（角色动画推荐方案）
 
-The right way to animate a doodle *character* (walk / dance / wave / jump) is **not** hand-tuned math — it is **real motion-capture retargeted onto a stick figure**. An agent should only choose the character and choreograph named moves; it must never hand-tune motion. Two pieces:
+为涂鸦*角色*制作动画（行走 / 跳舞 / 挥手 / 跳跃）的正确方式**不是**手工调数学参数，而是将**真实动作捕捉重定向到火柴人**。智能体只应选择角色并编排具名动作，绝不能手调运动。系统包含两部分：
 
-- **`mocap/bvh2clip.mjs`** — offline converter: a 3D BVH mocap file → a compact 2D "clip" (per-frame joint tracks, hips-relative pose + root motion, scaled to a fixed figure height). Run once per motion; bundle clips with `clips.js`.
-- **`ink-puppet.js`** — runtime: builds the stick figure, plays clips, exposes a **declarative choreography API**:
+- **`mocap/bvh2clip.mjs`**——离线转换器：将 3D BVH 动捕文件转换为紧凑的 2D“片段”（逐帧关节轨迹、相对髋部的姿态 + 根运动，并缩放到固定人物高度）。每个动作只需运行一次；将片段与 `clips.js` 一起打包。
+- **`ink-puppet.js`**——运行时：构建火柴人、播放片段，并提供**声明式编舞 API**：
 
 ```js
 var p = InkPuppet.create(mount, { cx: 960, ground: 902, boil: "boil" });
@@ -68,19 +71,22 @@ InkPuppet.choreograph(tl, p, [                          // then plays named moca
 InkTheater.balloon(tl, { into: fxGroup, overlay: htmlOverlay, at: 5, dur: 2, text: "hello!", boil: "boil" });
 ```
 
-Deterministic + seek-safe (pose is a pure function of each segment's local time).
+确定且可安全跳转（姿态是各片段局部时间的纯函数）。
 
-**The action library (`mocap/catalog.json`)** ships 12 varied moves the agent picks by name — locomotion (`walk`, `run`, `climb`, `march`, `shuffle`), action (`jump`, `kick`), posture (`sit`), gesture (`wave`), dance (`dance_spin`, `dance_glide`, `twist`). Every clip is CMU-sourced (free for any use). **Read the catalog and pick moves that fit the story — don't loop one clip.**
+**动作库（`mocap/catalog.json`）**随附 12 个各具特色、可由智能体按名称选择的动作——移动（`walk`、`run`、`climb`、`march`、`shuffle`）、动作（`jump`、`kick`）、姿态（`sit`）、手势（`wave`）、舞蹈（`dance_spin`、`dance_glide`、`twist`）。所有片段均来自 CMU（可免费用于任何用途）。**请阅读目录并选择符合故事的动作——不要只循环一个片段。**
 
-**Extend it in one command** (self-extending, no code changes) — the converter auto-maps fair1 / CMU / Mixamo skeletons:
+**一条命令即可扩展**（自扩展，无需修改代码）——转换器会自动映射 fair1 / CMU / Mixamo 骨架：
+
 ```
 node mocap/add-motion.mjs backflip 05_20 dance "a backflip"   # CMU id, or a URL, or a local .bvh
 ```
-Free **CMU mocap** (`una-dinosauria/cmu-mocap`) has thousands. This is what Meta's *Animated Drawings* does, but here it stays **vector, white-ink, with a draw-on reveal** (AD is raster, humanoid-only, no reveal). Provenance (all clips CMU, free for any use): `mocap/NOTE.md` · `THIRD_PARTY_NOTICES.md`.
 
-### Speech balloons — `InkTheater.balloon(tl, opts)`
-Comic balloon that grows from the mouth, with HTML overlay text (so the webfont applies). `opts`: `into` (an SVG `<g>`), `overlay` (an HTML div), `at`, `dur`, `text`, `mouth:[x,y]`, `center:[x,y]`, `w`, `size`, `boil`.
+免费的 **CMU mocap**（`una-dinosauria/cmu-mocap`）包含数千个动作。这也是 Meta 的 *Animated Drawings* 所采用的方式，但这里始终保持**矢量、白墨风格，并带有绘制显现效果**（AD 为栅格、仅支持类人形，且没有显现过程）。来源说明（所有片段均来自 CMU，可免费用于任何用途）：`mocap/NOTE.md` · `THIRD_PARTY_NOTICES.md`。
 
-## Demos
+### 对话气泡——`InkTheater.balloon(tl, opts)`
 
-- `examples/mocap-figure/` — the pencil figure draws itself, then walks / runs / dances / kicks / sits / waves via **real CMU mocap**. Self-contained and lintable (`npx hyperframes lint ink-theater/examples/mocap-figure`); see `examples/README.md`.
+从嘴部生长出来的漫画气泡，文字使用 HTML 叠加层（因此 webfont 可以生效）。`opts`：`into`（一个 SVG `<g>`）、`overlay`（一个 HTML div）、`at`、`dur`、`text`、`mouth:[x,y]`、`center:[x,y]`、`w`、`size`、`boil`。
+
+## 演示
+
+- `examples/mocap-figure/`——铅笔人物先绘制出自身，再通过**真实 CMU 动捕**行走 / 奔跑 / 跳舞 / 踢腿 / 坐下 / 挥手。示例自包含且可执行 lint（`npx hyperframes lint ink-theater/examples/mocap-figure`）；参见 `examples/README.md`。
