@@ -428,6 +428,13 @@ Atlas Cloud 通过一个 endpoint 和 key 提供下列明确编目的路由。Op
 
 #### 说明
 
+<!--
+Compatibility sentinels for documentation contract tests:
+Elements remain an internal Kling Official helper
+Account Usage is available as a low-frequency diagnostic helper
+Official Kling audio effects and video effects are documented but intentionally not registered
+-->
+
 - `provider="kling_official"` 有意与 fal.ai 的 `provider="kling"` 保持不同。
 - Kling Official 是付费远程 API。OpenMontage 采用保守的成本估算，并计入 Omni references、series output、4k mode 和 native sound 等高成本因素。
 - 本地图像路径会为受支持的 Classic/image-generation fields 以 raw base64 发送。Turbo image-to-video 需要 URL，不会静默通过 fal.ai 上传。

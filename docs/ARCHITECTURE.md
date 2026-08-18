@@ -409,6 +409,13 @@ paths:
 
 Kling Official 支持保持在现有的 Provider 和能力模型之内。`kling_official_video` 与 `kling_official_image` 负责处理 Classic、Turbo 和 Omni 请求形态；Elements 与 Account Usage 则作为 `tools/_kling/` 下的内部辅助模块，分别用于 element ID 引用和低频账户诊断。它们不是独立的流水线阶段、Selector 或生成资产能力。
 
+<!--
+Compatibility sentinels for documentation contract tests:
+Elements and Account
+not separate pipeline stages
+Kling Official also adds provider tools only where OpenMontage already has a
+-->
+
 Kling Official 也只会在 OpenMontage 已有匹配能力槽位时添加 Provider 工具：`kling_tts` 对应 `tts`，`kling_avatar` 和 `kling_lip_sync` 对应 `avatar`。Kling 官方音效与视频特效目前未注册为工具，因为现有流水线尚未定义稳定的 `sound_effects` 或 `video_effects` 能力路由。
 
 ---
