@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import os
 import subprocess
 import sys
@@ -17,7 +18,7 @@ from tests.contracts.test_phase0_contracts import sample_artifact
 
 
 pytest.importorskip("playwright.sync_api")
-from playwright.sync_api import sync_playwright  # noqa: E402
+sync_playwright = importlib.import_module("playwright.sync_api").sync_playwright
 
 
 APPROVAL_CASES = [
@@ -219,7 +220,7 @@ def test_static_navigation_invalid_route_and_active_takes(staged_backlot_server)
                 wait_until="networkidle",
             )
             assert response and response.status == 200
-            assert "PROJECT NOT FOUND" in page.locator("body").inner_text()
+            assert "未找到项目" in page.locator("body").inner_text()
 
             page.goto(staged_backlot_server + "/p/the-last-lighthouse?static=1", wait_until="networkidle")
             page.wait_for_timeout(300)
@@ -250,13 +251,13 @@ def test_every_canonical_gate_promotes_its_artifact_before_approval(
             )
             review = page.locator(f'.approval-review[data-stage="{stage}"]')
             assert review.is_visible()
-            assert review.get_by_text("PENDING APPROVAL", exact=True).is_visible()
+            assert review.get_by_text("等待批准", exact=True).is_visible()
             assert "[object Object]" not in review.inner_text()
             artifact = review.locator(f'[data-artifact="{artifact_name}"]')
             assert artifact.is_visible()
             assert visible_text in artifact.inner_text()
 
-            review.get_by_role("button", name="OPEN FULL ARTIFACT").click()
+            review.get_by_role("button", name="打开完整产物").click()
             assert page.locator(".drawer").is_visible()
             assert visible_text in page.locator(".drawer").inner_text()
         finally:
@@ -270,7 +271,7 @@ def test_script_gate_keeps_script_visible_and_marks_pending_approval(staged_back
         try:
             page.goto(staged_backlot_server + "/p/gate-script?static=1", wait_until="networkidle")
             assert page.locator(".script-card").is_visible()
-            assert page.locator(".script-pending").inner_text() == "PENDING APPROVAL"
+            assert page.locator(".script-pending").inner_text() == "等待批准"
         finally:
             browser.close()
 
@@ -290,5 +291,25 @@ def test_manifest_declared_custom_gate_uses_generic_review_fallback(staged_backl
             assert artifact.is_visible()
             assert "Ada" in artifact.inner_text()
             assert "Round explorer" in artifact.inner_text()
+        finally:
+            browser.close()
+
+
+def test_default_chinese_ui_can_switch_to_english(staged_backlot_server):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        try:
+            page.goto(staged_backlot_server + "/?static=1", wait_until="networkidle")
+            assert page.locator("html").get_attribute("lang") == "zh-CN"
+            assert page.locator("h1").text_content() == "项目库"
+
+            page.get_by_role("button", name="切换到 English").click()
+            assert page.locator("html").get_attribute("lang") == "en"
+            assert page.locator("h1").text_content() == "Library"
+
+            page.reload(wait_until="networkidle")
+            assert page.locator("html").get_attribute("lang") == "en"
+            assert page.locator("h1").text_content() == "Library"
         finally:
             browser.close()

@@ -13,6 +13,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import os
 import shutil
@@ -73,6 +74,8 @@ def compare_images(
     width, height = delta.size
     diff = Image.new("RGB", delta.size, (0, 0, 0))
     diff_px = diff.load()
+    if pixels is None or diff_px is None:
+        raise RuntimeError("Could not access screenshot pixels")
     for y in range(height):
         for x in range(width):
             if max(pixels[x, y]) > 8:
@@ -95,7 +98,7 @@ def run_stage() -> None:
     )
 
 
-def start_server() -> subprocess.Popen:
+def start_server() -> subprocess.Popen[bytes]:
     env = dict(os.environ)
     env["OPENMONTAGE_PROJECTS_DIR"] = str(STAGE_DIR)
     server = subprocess.Popen(
@@ -165,7 +168,7 @@ def compare_or_bless(capture_dir: Path, *, bless: bool, threshold: float) -> lis
 
 def run_interactions(capture_dir: Path) -> dict[str, Any]:
     """Run browser interaction smoke through Python Playwright."""
-    from playwright.sync_api import sync_playwright
+    sync_playwright = importlib.import_module("playwright.sync_api").sync_playwright
 
     screenshot = capture_dir / "interaction-smoke.png"
     with sync_playwright() as pw:
@@ -184,7 +187,7 @@ def run_interactions(capture_dir: Path) -> dict[str, Any]:
         page.wait_for_function("() => !document.querySelector('.modal-bg')?.classList.contains('open')")
         if page.locator(".takes").count() < 1:
             raise RuntimeError("takes drawer not present on staged takes scene")
-        replay_button = page.locator(".rp-btn", has_text="REPLAY RUN")
+        replay_button = page.locator(".replay-bar .rp-btn").last
         if replay_button.count():
             replay_button.first.click()
             page.wait_for_selector('input[type="range"]')
