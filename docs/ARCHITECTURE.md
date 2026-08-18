@@ -215,6 +215,7 @@ stages:
 | `avatar-spokesperson` | talking_head | 由 Avatar 驱动的出镜人视频 |
 | `character-animation` | animation | 使用 SVG Rig、姿势库、GSAP Timeline 和 HyperFrames 渲染的本地绑定卡通角色 |
 | `cinematic` | cinematic | 预告片、先导片、情绪驱动型剪辑 |
+| `documentary-montage` | documentary | 从真实素材与开放档案中检索并制作主题蒙太奇 |
 | `clip-factory` | custom | 从长素材批量生成短视频 |
 | `hybrid` | hybrid | 源素材与 AI 生成的辅助视觉内容相结合 |
 | `localization-dub` | custom | 为现有视频制作字幕、配音和翻译版本 |

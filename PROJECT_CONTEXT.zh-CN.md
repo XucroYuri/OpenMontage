@@ -100,6 +100,7 @@ Layer 3: .agents/skills/         -> 通用技术或 provider API 的最佳实践
 | `clip-factory` | `pipeline_defs/clip-factory.yaml` | 批量提取短视频 |
 | `podcast-repurpose` | `pipeline_defs/podcast-repurpose.yaml` | 播客再利用 |
 | `cinematic` | `pipeline_defs/cinematic.yaml` | 电影感剪辑 |
+| `documentary-montage` | `pipeline_defs/documentary-montage.yaml` | 从真实素材与开放档案中检索并制作主题蒙太奇 |
 | `animation` | `pipeline_defs/animation.yaml` | 动画优先 |
 | `character-animation` | `pipeline_defs/character-animation.yaml` | 本地 rigged character 动画 |
 | `hybrid` | `pipeline_defs/hybrid.yaml` | 原始素材与辅助视觉混合 |

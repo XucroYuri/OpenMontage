@@ -104,7 +104,7 @@ projects/<project-id>/
 
 ## 流水线与阶段契约
 
-当前主要 pipeline 包括：`animated-explainer`、`talking-head`、`screen-demo`、`clip-factory`、`podcast-repurpose`、`cinematic`、`animation`、`character-animation`、`hybrid`、`avatar-spokesperson`、`localization-dub` 与测试用 `framework-smoke`。实际可用阶段、工具、gate 和稳定性以对应 manifest 为准。
+当前主要 pipeline 包括：`animated-explainer`、`talking-head`、`screen-demo`、`clip-factory`、`podcast-repurpose`、`cinematic`、`documentary-montage`、`animation`、`character-animation`、`hybrid`、`avatar-spokesperson`、`localization-dub` 与测试用 `framework-smoke`。实际可用阶段、工具、gate 和稳定性以对应 manifest 为准。
 
 典型阶段顺序为：
 

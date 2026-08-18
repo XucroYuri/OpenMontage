@@ -213,6 +213,7 @@ stages:
 | `avatar-spokesperson` | talking_head | Avatar-driven presenter videos |
 | `character-animation` | animation | Local rigged cartoon characters with SVG rigs, pose libraries, GSAP timelines, and HyperFrames rendering |
 | `cinematic` | cinematic | Trailer, teaser, mood-driven edits |
+| `documentary-montage` | documentary | Retrieval-first thematic montage from real-world footage and open archives |
 | `clip-factory` | custom | Batch short-form clips from long source |
 | `hybrid` | hybrid | Source footage + AI-generated support visuals |
 | `localization-dub` | custom | Subtitle, dub, and translate existing video |
