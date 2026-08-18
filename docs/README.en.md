@@ -28,6 +28,7 @@ The repository uses Chinese-first documentation for human-facing project guides.
 - [QA plan](../tests/qa/QA_PLAN.en.md)
 - [Codex prompt entry point](../.codex/prompts/README.en.md)
 - [Skill index (Chinese primary)](../skills/INDEX.md) / [English copy](../skills/INDEX.en.md)
+- [Terminology reference (Chinese primary)](TERMINOLOGY.md) / [English copy](TERMINOLOGY.en.md)
 
 ## Runtime-contract exception
 

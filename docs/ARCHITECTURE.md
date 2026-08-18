@@ -21,7 +21,7 @@ Agent 读取流水线清单（YAML）
 对于每个阶段：
    1. Agent 读取阶段导演 Skill（Markdown）
    2. Agent 通过工具注册表调用 Python 工具
-   3. Agent 将检查点（JSON）及工件写入磁盘
+   3. Agent 将检查点（JSON）及产物写入磁盘
    4. Agent 使用 meta/reviewer Skill 进行自审
    5. 人工审批门禁（如已配置）
         |
@@ -58,7 +58,7 @@ OpenMontage/
 │
 ├── pipeline_defs/          # YAML 流水线清单
 ├── schemas/                # 用于验证的 JSON Schema 定义
-│   ├── artifacts/          # 11 种工件 Schema（brief → publish_log）
+│   ├── artifacts/          # 规范产物 Schema（brief、action_timeline、publish_log 等）
 │   ├── checkpoints/        # 检查点状态 Schema
 │   ├── pipelines/          # 流水线清单 Schema
 │   ├── styles/             # 风格 Playbook Schema
@@ -236,7 +236,7 @@ research → proposal → script → scene_plan → assets → edit → compose 
 
 1. 都有一个**阶段导演 Skill**（面向 Agent 的 Markdown 指令）
 2. 声明 **`tools_available`**（Agent 可调用的工具）
-3. **产出**一个或多个规范工件
+3. **产出**一个或多个规范产物
 4. 包含 **`review_focus`** 标准和 **`success_criteria`**
 5. 可以要求在继续前完成**人工审批**
 
@@ -274,16 +274,16 @@ research → proposal → script → scene_plan → assets → edit → compose 
 
 **函数：** `write_checkpoint()`、`read_checkpoint()`、`get_latest_checkpoint()`、`get_completed_stages()`、`get_next_stage()`
 
-### 规范工件（11 种，全部通过 JSON Schema 验证）
+### 规范产物（全部通过 JSON Schema 验证）
 
-| 工件 | 阶段 | 包含内容 |
+| 产物 | 阶段 | 包含内容 |
 |------|------|----------|
 | `research_brief` | research | 领域格局分析、数据点、受众洞察、切入角度 |
 | `proposal_packet` | proposal | 概念选项、制作计划、成本估算、审批门禁 |
 | `brief` | idea | 标题、Hook、关键点、基调、风格、平台、时长 |
 | `script` | script | 带时间戳的段落、增强提示、发音指南 |
 | `scene_plan` | scene_plan | 包含类型、说明和时间的场景定义 |
-| `asset_manifest` | assets | 生成的资产及其路径、来源工具、场景关联关系 |
+| `asset_manifest` | assets | 生成素材及其路径、来源工具、场景关联关系 |
 | `edit_decisions` | edit | 带入点/出点时间的剪辑决策 |
 | `render_report` | compose | 输出元数据（格式、分辨率、时长） |
 | `publish_log` | publish | 带状态的平台发布条目 |
@@ -333,7 +333,7 @@ reconcile(entry_id, $)     # 记录实际支出
               | agent_skills[] 引用
               |
 第 2 层：skills/                  OpenMontage 约定
-         “本项目如何使用技术”          流水线集成、质量检查清单、工件映射
+         “本项目如何使用技术”          流水线集成、质量检查清单、产物映射
               ^
               | 阶段 Skill 引用
               |
@@ -407,14 +407,7 @@ paths:
 | `VIDEO_GEN_LOCAL_ENABLED` | 本地视频工具 | 启用本地 GPU 生成 |
 | `VIDEO_GEN_LOCAL_MODEL` | wan, hunyuan, ltx, cogvideo | 选择本地模型 |
 
-Kling Official 支持保持在现有的 Provider 和能力模型之内。`kling_official_video` 与 `kling_official_image` 负责处理 Classic、Turbo 和 Omni 请求形态；Elements 与 Account Usage 则作为 `tools/_kling/` 下的内部辅助模块，分别用于 element ID 引用和低频账户诊断。它们不是独立的流水线阶段、Selector 或生成资产能力。
-
-<!--
-Compatibility sentinels for documentation contract tests:
-Elements and Account
-not separate pipeline stages
-Kling Official also adds provider tools only where OpenMontage already has a
--->
+Kling Official 支持保持在现有的 Provider 和能力模型之内。`kling_official_video` 与 `kling_official_image` 负责处理 Classic、Turbo 和 Omni 请求形态；Elements 与 Account Usage 则作为 `tools/_kling/` 下的内部辅助模块，分别用于 element ID 引用和低频账户诊断。它们不是独立的流水线阶段、Selector 或素材生成能力。
 
 Kling Official 也只会在 OpenMontage 已有匹配能力槽位时添加 Provider 工具：`kling_tts` 对应 `tts`，`kling_avatar` 和 `kling_lip_sync` 对应 `avatar`。Kling 官方音效与视频特效目前未注册为工具，因为现有流水线尚未定义稳定的 `sound_effects` 或 `video_effects` 能力路由。
 
@@ -526,7 +519,7 @@ tests/
 
 2. **基于检查点的恢复**——任意阶段都可能失败，流水线会从最后一个检查点继续，无需重新运行已经完成的阶段。
 
-3. **经过 Schema 验证的工件**——每个阶段的输出都会在写入检查点前根据 JSON Schema 验证，以防无效内容向后续阶段传播。
+3. **经过 Schema 验证的产物**——每个阶段的输出都会在写入检查点前根据 JSON Schema 验证，以防无效内容向后续阶段传播。
 
 4. **将预算作为一等概念**——执行前进行成本估算、预算预留和实际费用核销，Agent 不能静默超支。
 

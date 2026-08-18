@@ -28,6 +28,7 @@
 - [QA 计划](../tests/qa/QA_PLAN.md)
 - [Codex 提示词入口](../.codex/prompts/README.md)
 - [技能索引](../skills/INDEX.md)
+- [中文术语表](TERMINOLOGY.md)
 
 ## Agent 运行时契约
 

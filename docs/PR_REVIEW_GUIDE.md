@@ -20,7 +20,7 @@ OpenMontage 是一个由 Agent 编排的视频制作系统。许多 PR 的影响
 - 范围是否聚焦，还是混入了无关变更？
 - 合并后，用户、维护者或 Agent 能否理解其行为？
 - PR 是否保留了 Agent 优先架构？
-- 是否在提供商发现、流水线工件或渲染行为方面引入回归？
+- 是否在提供商发现、流水线产物或渲染行为方面引入回归？
 - 测试和文档是否按与行为变更相匹配的层级进行了更新？
 - 是否存在安全、隐私、依赖或供应链方面的隐患？
 
@@ -57,7 +57,7 @@ OpenMontage 是一个由 Agent 编排的视频制作系统。许多 PR 的影响
 
 - 是否更改了无关文件？
 - 是否仅在依赖实际发生变化时才更改锁文件？
-- 是否无故包含生成文件、截图、二进制资产或本地工件？
+- 是否无故包含生成文件、截图、二进制素材或本地产物？
 - 文档/测试修复是否与功能开发捆绑在一起，从而掩盖风险？
 - 分支相对于最新 `main` 是否已经过时？
 
@@ -69,7 +69,7 @@ OpenMontage 是一个由 Agent 编排的视频制作系统。许多 PR 的影响
 
 - 变更会影响现有用户，还是只新增一条可选路径？
 - 它是否改变默认提供商选择、回退行为或设置菜单？
-- 它是否更改 schema、工件或流水线阶段契约？
+- 它是否更改 schema、产物或流水线阶段契约？
 - 它是否更改渲染输出、时序、音频、字幕或文件路径？
 - 它是否引入了本应告知用户的静默回退行为？
 
@@ -136,7 +136,7 @@ Python 应提供工具和持久化能力，而不应承载隐藏的编排逻辑�
 - `runtime`、`stability`、`execution_mode`、`determinism`
 - 使用受支持前缀（如 `cmd:`、`env:`、`python:`）的 `dependencies`
 - `install_instructions`
-- `input_schema`、`output_schema` 以及工件行为
+- `input_schema`、`output_schema` 以及产物行为
 - `supports`、`best_for`、`not_good_for`
 - `resource_profile`
 - `retry_policy`
@@ -197,7 +197,7 @@ python -c "from tools.tool_registry import registry; import json; registry.disco
 
 - Manifest schema 有效性
 - 阶段顺序和阶段名称
-- `produces` 工件
+- `produces` 产物
 - `tools_available`
 - `review_focus`
 - `success_criteria`
@@ -209,18 +209,18 @@ python -c "from tools.tool_registry import registry; import json; registry.disco
 Manifest 与阶段 skill 必须一致。如果 manifest 声明某阶段产出 `scene_plan`，director skill
 应确实指导生成有效的 `scene_plan`。
 
-### 规范工件与 Schema
+### 规范产物与 Schema
 
-`schemas/artifacts/` 中的工件是阶段之间的契约。
+`schemas/artifacts/` 中的产物是阶段之间的契约。
 
-审查 schema 或工件变更时：
+审查 schema 或产物变更时：
 
-- 每个生产者是否仍会写出有效工件？
-- 每个消费者是否仍能理解该工件？
+- 每个生产者是否仍会写出有效产物？
+- 每个消费者是否仍能理解该产物？
 - 必填字段是否有充分理由？
 - 是否需要迁移或向后兼容？
 - 测试是否覆盖有效与无效示例？
-- checkpoint 协议是否仍能配合变更后的工件工作？
+- checkpoint 协议是否仍能配合变更后的产物工作？
 
 Schema 变更影响很大。除非 PR 能证明影响范围有限，否则应将其视为跨流水线变更。
 
@@ -233,7 +233,7 @@ OpenMontage 使用 checkpoint 来支持恢复、人工批准、审计追踪和�
 - PR 是否保留 checkpoint 状态语义？
 - 是否避免跳过必要的人工批准？
 - 是否在预期位置保留成本快照和审查元数据？
-- 是否避免把不完整的规范工件写成已完成阶段？
+- 是否避免把不完整的规范产物写成已完成阶段？
 - 是否与 `skills/meta/checkpoint-protocol.md` 一致？
 - 是否与 `skills/meta/reviewer.md` 一致？
 
@@ -252,7 +252,7 @@ OpenMontage 可以使用 Remotion、HyperFrames 或 FFmpeg 进行合成。Runtim
 - runtime 可用性错误是否作为阻断项呈现？
 - 是否准确检查 Node、FFmpeg、`npx` 和包要求？
 - 渲染报告是否包含足够的失败调试证据？
-- 当生产渲染路径不同时，浏览器预览是否被视为 QA/调试工件？
+- 当生产渲染路径不同时，浏览器预览是否被视为 QA/调试产物？
 
 从动态主导制作静默降级为静态主导回退属于审查问题，而不是无害的实现细节。
 
@@ -298,7 +298,7 @@ OpenMontage 不应静默产生费用，也不应暗示付费提供商是免费�
 - 设置文档、依赖、成本、网络和缓存行为是否准确？
 - 是否有聚焦的测试？
 - 是否避免在模块导入时导入重量级依赖？
-- 生成的工件是否写入预期路径？
+- 生成的产物是否写入预期路径？
 
 最低预期覆盖：
 
@@ -361,7 +361,7 @@ OpenMontage 不应静默产生费用，也不应暗示付费提供商是免费�
 - Manifest 是否仍能通过验证？
 - 阶段 skill 是否存在并与阶段名称匹配？
 - `review_focus` 和 `success_criteria` 是否有实际意义？
-- 规范工件是否有效？
+- 规范产物是否有效？
 - 人工批准门是否正确？
 - 测试是否已更新？
 
@@ -371,7 +371,7 @@ OpenMontage 不应静默产生费用，也不应暗示付费提供商是免费�
 
 - 哪些生产者与消费者会受到影响？
 - 字段是必填还是可选？
-- 现有 checkpoint/工件是否仍能工作？
+- 现有 checkpoint/产物是否仍能工作？
 - 测试是否同时覆盖有效与无效数据？
 - 变更是否需要迁移说明？
 

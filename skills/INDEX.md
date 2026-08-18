@@ -198,6 +198,6 @@ Layer 3 技能位于 `.agents/skills/`，由 `npx skills add` 管理；当前仓
 | 动画 | `framer-motion`, `lottie-bodymovin` | `pproenca/dot-skills`, `dylantarre/animation-principles` |
 | 设计 | `tailwind-design-system`, `web-design-guidelines`, `vercel-react-best-practices`, `vercel-composition-patterns` | `wshobson/agents`, `vercel-labs/agent-skills` |
 | AI 视频（HeyGen） | `heygen`, `avatar-video`, `create-video`, `faceswap`, `ai-video-gen`, `video-download`, `video-edit`, `video-translate`, `video-understand`, `visual-style` | `heygen-com/skills` |
-| Kling Official | `kling-official`；覆盖官方认证、Classic/Turbo/Omni、Omni 多参考语法、Elements/Account Usage 内部辅助能力、callback、TTS 参数、avatar/lip-sync face selection、错误处理和成本治理；对应 `kling_official_video`、`kling_official_image`、`kling_tts`、`kling_avatar`、`kling_lip_sync` | 本地技能 |
+| Kling Official | `kling-official`；覆盖官方认证、Classic/Turbo/Omni、Omni 多参考语法、Elements/Account Usage 内部辅助能力、callback、TTS 参数、Avatar 与口型同步的人脸选择、错误处理和成本治理；对应 `kling_official_video`、`kling_official_image`、`kling_tts`、`kling_avatar`、`kling_lip_sync` | 本地技能 |
 | 高质量 AI 视频 | `seedance-2-0`；首选高质量默认方案，可通过 `seedance_video`（fal.ai）或 `heygen_video` Avatar Shots 使用 | 本地技能 |
 | 基础设施 | `acestep`, `ltx2`, `playwright-recording` | `digitalsamba/claude-code-video-toolkit` |

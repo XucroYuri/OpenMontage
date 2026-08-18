@@ -6,7 +6,7 @@ PIP = $(RUN_PYTHON) -m pip
 
 .DEFAULT_GOAL := setup
 
-.PHONY: setup install install-dev install-gpu test test-contracts lint clean preflight demo demo-list hyperframes-doctor hyperframes-warm venv ensure-venv
+.PHONY: setup install install-dev install-gpu test test-contracts lint clean preflight preflight-json demo demo-list hyperframes-doctor hyperframes-warm venv ensure-venv
 
 # ---- Virtual environment ----
 
@@ -98,7 +98,11 @@ test-contracts: ensure-venv
 # ---- Utilities ----
 
 preflight: ensure-venv
-	$(RUN_PYTHON) -c "from tools.tool_registry import registry; import json; registry.discover(); print(json.dumps(registry.provider_menu(), indent=2))"
+	@echo "==> 正在检查合成引擎、提供商能力和快速配置项……"
+	@$(RUN_PYTHON) scripts/preflight_summary.py
+
+preflight-json: ensure-venv
+	$(RUN_PYTHON) -c "from tools.tool_registry import registry; import json; registry.discover(); print(json.dumps(registry.provider_menu(), ensure_ascii=False, indent=2))"
 
 hyperframes-doctor: ensure-venv
 	@echo "==> 正在检查 HyperFrames 运行环境（Node、FFmpeg、npx 与 HyperFrames doctor）……"

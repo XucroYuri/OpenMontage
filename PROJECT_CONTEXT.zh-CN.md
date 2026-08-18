@@ -1,6 +1,8 @@
 # OpenMontage 共享项目上下文（中文伴随说明）
 
 > **人类可读的简体中文说明** | [英文规范上下文](PROJECT_CONTEXT.md)
+>
+> 对应英文源文件 Blob：`0cfa6d11d6202386fc225d85dd0c7ebbe47f60d6`；同步日期：2026-08-18。
 
 本文面向中文开发者解释项目架构和约定。`CLAUDE.md`、`CODEX.md`、`CURSOR.md`、`COPILOT.md` 等平台入口仍应指向 [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md)，避免 Agent 从多份翻译中读取分叉规则。若本文与实时代码、Schema、registry、pipeline manifest 或英文规范文件冲突，以这些规范来源为准。
 
@@ -53,7 +55,7 @@ Layer 3: .agents/skills/         -> 通用技术或 provider API 的最佳实践
 - 每个 stage 都有 Markdown director Skill，负责说明 Agent 应如何执行。
 - pipeline manifest 是声明式 YAML，定义阶段、Skill、工具、审查重点和人工审批门。
 - 主要能力族采用 selector + provider tool：例如 `tts_selector` 路由到各 TTS provider，`video_selector` 路由到各视频 provider。
-- 风格 playbook 使用 YAML 描述视觉语言、排版、运动、音频和资产约束。
+- 风格 playbook 使用 YAML 描述视觉语言、排版、运动、音频和素材约束。
 - `brief`、`script`、`scene_plan`、`asset_manifest`、`edit_decisions`、`render_report`、`publish_log` 是 canonical artifact。
 - 每个工具都继承 `tools/base_tool.py` 中的 `BaseTool`。
 - checkpoint policy 来自 manifest 的 `human_approval_default` 与 `skills/meta/checkpoint-protocol.md`。
@@ -78,7 +80,7 @@ Layer 3: .agents/skills/         -> 通用技术或 provider API 的最佳实践
 | `tools/video/video_compose.py` | 按 `edit_decisions.render_runtime` 路由到 Remotion、HyperFrames 或 FFmpeg |
 | `tools/video/hyperframes_compose.py` | HyperFrames workspace、检查与渲染 |
 | `tools/graphics/threejs_world.py` | 本地语义 3D 世界创作 |
-| `tools/graphics/threejs_asset_catalog.py` | CC0 GLTF/GLB 目录、资产清单与来源记录 |
+| `tools/graphics/threejs_asset_catalog.py` | CC0 GLTF/GLB 目录、素材清单与来源记录 |
 | `tools/graphics/atlas_3d.py` | Atlas Cloud Tripo H3.1 文生 3D |
 | `tools/graphics/fal_3d.py` | fal.ai Hunyuan 3D 与 SAM 3D 路径 |
 | `tools/graphics/blender_world.py` | Blender 4.5 LTS 世界组装、灯光、镜头与 Eevee Next 渲染 |

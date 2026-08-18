@@ -511,7 +511,7 @@ ComfyUI 不可用（服务器离线）时，选择器会继续尝试其他可用
 **总计：** 约 500 行 Python + 3 个工作流 JSON。
 
 无需修改：`base_tool.py`、现有的非 ComfyUI 生成提供商、任何
-管线定义或任何 schema。
+流水线定义或任何 schema。
 
 ---
 
