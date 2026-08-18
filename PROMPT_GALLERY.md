@@ -230,7 +230,7 @@ make demo                         # 渲染全部三个演示
 
 发现了效果出色的提示词？欢迎分享：
 
-1. 在“Prompt Exchange”分类中发起一篇 [GitHub Discussion](../../discussions)
+1. 在“Prompt Exchange”分类中发起一篇 [GitHub Discussion](https://github.com/calesthio/OpenMontage/discussions)
 2. 提供你的提示词、成片截图或效果描述、费用，以及使用的提供商
 3. 最优秀的提示词将署名收录到本画廊中
 

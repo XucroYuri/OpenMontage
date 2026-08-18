@@ -230,7 +230,7 @@ With video generation (Veo, Kling, Runway) + premium TTS (ElevenLabs) + music (S
 
 Found a prompt that produces great results? Share it:
 
-1. Open a [GitHub Discussion](../../discussions) in the "Prompt Exchange" category
+1. Open a [GitHub Discussion](https://github.com/calesthio/OpenMontage/discussions) in the "Prompt Exchange" category
 2. Include: your prompt, a screenshot or description of the output, cost, and which providers you used
 3. The best prompts get added to this gallery with credit
 
