@@ -3,7 +3,7 @@
 
 **简体中文（主文档）** · [英文副本](NOTE.en.md)
 
-所有随附片段均源自 **CMU Graphics Lab Motion Capture Database**（http://mocap.cs.cmu.edu），该数据库**允许免费用于包括研究和商业用途在内的所有用途**。BVH 文件获取自 `una-dinosauria/cmu-mocap` 镜像；`clips.js` / `clips/*.json` 是由 `bvh2clip.mjs` 生成的 2D 衍生数据。每个片段的来源 trial ID 记录在 `catalog.json` 中（例如 `wave` = CMU 141_16，`shuffle` = CMU 77_29）。完整署名参见 [`../THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)。
+所有随附片段均源自 **CMU Graphics Lab Motion Capture Database**（http://mocap.cs.cmu.edu），该数据库**允许免费用于包括研究和商业用途在内的所有用途**。BVH 文件获取自 `una-dinosauria/cmu-mocap` 镜像；`clips.js` / `clips/*.json` 是由 `bvh2clip.mjs` 生成的 2D 衍生数据。每个片段的来源 trial ID 记录在 `catalog.json` 中（例如 `wave` = CMU 141_16，`shuffle` = CMU 77_29）。中文来源说明见 [`../THIRD_PARTY_NOTICES.zh-CN.md`](../THIRD_PARTY_NOTICES.zh-CN.md)，具有约束力的英文原文见 [`../THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)。
 
 ## 添加动作（自扩展，无需修改代码）
 

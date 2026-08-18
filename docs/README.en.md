@@ -23,6 +23,7 @@ The repository uses Chinese-first documentation for human-facing project guides.
 - [Ink Theater](../ink-theater/README.en.md)
 - [Ink Theater examples](../ink-theater/examples/README.en.md)
 - [Ink Puppet mocap notes](../ink-theater/mocap/NOTE.en.md)
+- [Ink Theater third-party notices](../ink-theater/THIRD_PARTY_NOTICES.md)
 - [Remotion scene types](../remotion-composer/SCENE_TYPES.en.md)
 - [QA plan](../tests/qa/QA_PLAN.en.md)
 - [Codex prompt entry point](../.codex/prompts/README.en.md)

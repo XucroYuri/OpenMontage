@@ -23,6 +23,7 @@
 - [Ink Theater](../ink-theater/README.md)
 - [Ink Theater 示例](../ink-theater/examples/README.md)
 - [Ink Puppet 动捕说明](../ink-theater/mocap/NOTE.md)
+- [Ink Theater 第三方资源中文说明](../ink-theater/THIRD_PARTY_NOTICES.zh-CN.md)
 - [Remotion 场景类型](../remotion-composer/SCENE_TYPES.md)
 - [QA 计划](../tests/qa/QA_PLAN.md)
 - [Codex 提示词入口](../.codex/prompts/README.md)
@@ -35,6 +36,7 @@
 - [`PROJECT_CONTEXT.md`](../PROJECT_CONTEXT.md)：Agent 共享的架构上下文；中文伴随说明见 [`PROJECT_CONTEXT.zh-CN.md`](../PROJECT_CONTEXT.zh-CN.md)。
 - `AGENTS.md`、`CLAUDE.md`、`CODEX.md`、`COPILOT.md`、`CURSOR.md`、`.github/copilot-instructions.md` 与 `.cursor/rules/openmontage.mdc`：固定入口文件，必须保持工具可发现的文件名和契约语义。
 - `skills/`、`.agents/skills/`、`pipeline_defs/`、`schemas/`：分别承载工作方法、提供商知识、流水线定义和机器校验契约。中文交互不意味着机械翻译这些内部内容。
+- 第三方版权与许可证原文：法律文本保持权利人发布的规范语言；可提供明确标注“非法律替代文本”的中文伴随说明。
 
 这项例外用于保护功能完整性：用户看到中文决策、说明、审批、成本和错误信息；内部仍保留规范的 pipeline ID、stage 名、Schema 字段、枚举、工具/提供商/模型名、命令、路径、环境变量和高质量 provider prompt。
 
