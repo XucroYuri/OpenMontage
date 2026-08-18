@@ -1,237 +1,239 @@
-# Prompt Gallery
+# 提示词画廊
 
-Tested prompts that produce impressive videos. Copy any prompt into your AI coding assistant after running `make setup`.
+> 语言：**简体中文（主文档）** · [English（副本）](PROMPT_GALLERY.en.md)
 
-## Zero-Key Demos (instant, no API keys)
+这些提示词均经过测试，可以生成令人印象深刻的视频。运行 `make setup` 后，将任意提示词复制到你的 AI 编程助手中即可使用。
 
-These render pre-built compositions using only Remotion components — animated charts, typography, data visualization. No external services, no cost, no waiting.
+## 零密钥演示（即刻运行，无需 API 密钥）
+
+这些演示仅使用 Remotion 组件渲染预构建合成，包括动态图表、动态排版和数据可视化。无需外部服务、没有费用，也不用等待。
 
 ```bash
-make demo                         # Render all three demos
-./render-demo.sh world-in-numbers # Render one specific demo
-./render-demo.sh --list           # See all available demos
+make demo                         # 渲染全部三个演示
+./render-demo.sh world-in-numbers # 渲染指定演示
+./render-demo.sh --list           # 查看所有可用演示
 ```
 
-| Demo | Duration | What It Shows |
-|------|----------|--------------|
-| **world-in-numbers** | 45s | KPI grids, bar charts, pie charts, line charts, comparison cards, stat reveals |
-| **code-to-screen** | 50s | Developer education: HTTP request lifecycle with progress bars, charts, callouts |
-| **focusflow-pitch** | 40s | Startup pitch deck: traction metrics, revenue donut chart, customer testimonial |
+| 演示 | 时长 | 展示内容 |
+|------|------|----------|
+| **world-in-numbers** | 45 秒 | KPI 网格、条形图、饼图、折线图、对比卡片、统计数字揭示动画 |
+| **code-to-screen** | 50 秒 | 开发者教育：通过进度条、图表和标注讲解 HTTP 请求生命周期 |
+| **focusflow-pitch** | 40 秒 | 创业项目推介：增长指标、营收环形图、客户证言 |
 
 ---
 
-## Zero-Key Prompts (free, works out of the box)
+## 零密钥提示词（免费，开箱即用）
 
-These use the full agent pipeline — research, scripting, asset generation, composition — using only free tools (Piper TTS, stock media, Remotion).
+这些提示词会使用完整的智能体流水线，包括研究、脚本撰写、资产生成和合成，但只使用免费工具（Piper TTS、素材库媒体和 Remotion）。
 
-### Data Explainer
+### 数据科普视频
 
-> "Make a 45-second animated explainer about why the sky is blue. Use data visualization and animated text — no images needed, just charts, stat cards, and typography."
+> “制作一段 45 秒的动画科普视频，解释天空为什么是蓝色。使用数据可视化和动态文字，不需要图片，只使用图表、统计卡片和排版。”
 
-**What you get:** Research-grounded script, Piper narration, Remotion-animated scenes with text cards, stat reveals, and callout boxes. Subtitles included.
+**你将获得：** 基于研究的脚本、Piper 旁白，以及由 Remotion 制作的文字卡片、统计数字揭示动画和标注框场景，并包含字幕。
 
-**Estimated time:** 5-10 minutes | **Cost:** $0
+**预计耗时：** 5–10 分钟 | **费用：** $0
 
-### Quick Fact Video
+### 趣味知识短视频
 
-> "Create a 60-second data-driven video about coffee consumption around the world. Include bar charts comparing countries and a pie chart of coffee types."
+> “制作一段 60 秒的数据驱动视频，介绍世界各地的咖啡消费情况。加入比较不同国家的条形图，以及展示咖啡种类的饼图。”
 
-**What you get:** Animated data visualization with charts, comparison cards, and narrated facts. All data sourced from the research stage.
+**你将获得：** 包含图表、对比卡片和事实旁白的动态数据可视化。所有数据均来自研究阶段。
 
-**Estimated time:** 8-12 minutes | **Cost:** $0
+**预计耗时：** 8–12 分钟 | **费用：** $0
 
-### History Explainer
+### 历史科普视频
 
-> "Make a short explainer about how the internet works, with narration and animated captions. Keep it under 60 seconds."
+> “制作一段简短的科普视频，解释互联网如何运作，并配上旁白和动态字幕。时长控制在 60 秒以内。”
 
-**What you get:** Structured explainer with section titles, text cards, stat reveals, and TikTok-style word-by-word captions synced to narration.
+**你将获得：** 结构清晰的科普视频，包括章节标题、文字卡片、统计数字揭示动画，以及与旁白同步的 TikTok 风格逐词字幕。
 
-**Estimated time:** 8-12 minutes | **Cost:** $0
+**预计耗时：** 8–12 分钟 | **费用：** $0
 
-### Developer Education
+### 开发者教育
 
-> "Create a 90-second animated explainer about how Git rebase works. Use animated diagrams and comparison cards to show rebase vs merge. Target audience: junior developers."
+> “制作一段 90 秒的动画科普视频，讲解 Git rebase 的工作原理。使用动态示意图和对比卡片展示 rebase 与 merge 的区别。目标受众：初级开发者。”
 
-**What you get:** Technical explainer with comparison cards (rebase vs merge), callout tips, step-by-step animated text, and developer-friendly narration.
+**你将获得：** 面向开发者的技术科普视频，包括 rebase 与 merge 对比卡片、提示标注、逐步呈现的动态文字，以及易于开发者理解的旁白。
 
-**Estimated time:** 10-15 minutes | **Cost:** $0
-
----
-
-## One-Key Prompts (FAL_KEY only, ~$0.50-$1.50)
-
-Adding `FAL_KEY` to your `.env` unlocks FLUX image generation. These prompts combine AI-generated visuals with Remotion animation.
-
-### Science Explainer
-
-> "Create an animated explainer about how CRISPR gene editing works, with AI-generated visuals of DNA and cell diagrams. Make it 90 seconds, educational but exciting."
-
-**What you get:** Research-backed script, FLUX-generated images with Ken Burns animation, spring-animated transitions, narration, subtitles, and music.
-
-**Estimated time:** 15-20 minutes | **Cost:** ~$0.80
-
-### Product Teaser
-
-> "Make a product launch teaser for a fictional smart water bottle called AquaPulse. 45 seconds, modern and minimal, with AI-generated product shots."
-
-**What you get:** Cinematic product teaser with FLUX-generated visuals, stat reveals (hydration data), comparison cards, and a punchy closing.
-
-**Estimated time:** 12-18 minutes | **Cost:** ~$0.60
-
-### Marketing Explainer
-
-> "Build a 90-second explainer about the psychology of color in marketing. Use AI-generated images showing color associations and include data about color impact on purchasing decisions."
-
-**What you get:** Research-grounded explainer with AI-generated color psychology illustrations, bar charts, pie charts, and narrated insights.
-
-**Estimated time:** 15-20 minutes | **Cost:** ~$1.00
+**预计耗时：** 10–15 分钟 | **费用：** $0
 
 ---
 
-## Animation Pipeline — Anime/Ghibli Style (FAL_KEY, ~$0.15)
+## 单密钥提示词（仅需 FAL_KEY，约 $0.50–$1.50）
 
-These use the **Animation pipeline** with `image_animation` approach — FLUX-generated still images brought to life through multi-image crossfade, cinematic camera motion, particle overlays, and ambient music. No video generation APIs needed. Each 30-second video costs ~$0.15.
+在 `.env` 中添加 `FAL_KEY` 即可解锁 FLUX 图像生成。这些提示词会将 AI 生成的视觉素材与 Remotion 动画结合起来。
 
-### Ghibli Fantasy World
+### 科学科普视频
 
-> "Create a 30-second Ghibli-style animated video of a magical floating library in the clouds at golden hour. Books drift between shelves, warm light streams through stained glass windows, and a small cat naps on a reading desk."
+> “制作一段动画科普视频，解释 CRISPR 基因编辑的工作原理，并使用 AI 生成的 DNA 和细胞示意图。时长 90 秒，既有教育意义又富有吸引力。”
 
-**What you get:** 6 anime scenes with 12 FLUX-generated images, camera motion (zoom, pan, Ken Burns, drift), sparkle and light-ray particles, cinematic vignette, hero title overlay, and auto-sourced ambient music with energy-optimized offset.
+**你将获得：** 基于研究的脚本、带 Ken Burns 动效的 FLUX 生成图像、弹簧动画转场、旁白、字幕和音乐。
 
-**Estimated time:** 10-15 minutes | **Cost:** ~$0.15
+**预计耗时：** 15–20 分钟 | **费用：** 约 $0.80
 
-### Underwater Exploration
+### 产品预告片
 
-> "Make a 30-second anime-style animation of an underwater temple with bioluminescent coral, ancient ruins covered in sea moss, luminous jellyfish drifting past stone pillars, and shafts of sunlight piercing the deep blue."
+> “为一款名为 AquaPulse 的虚构智能水瓶制作产品发布预告片。时长 45 秒，风格现代简约，并使用 AI 生成的产品镜头。”
 
-**What you get:** Deep ocean atmosphere with mist and sparkle particles, pan and drift camera motion, blue-green lighting overlays, section title overlays, and oceanic ambient soundtrack.
+**你将获得：** 电影感产品预告片，包括 FLUX 生成的视觉素材、统计数字揭示动画（水分摄入数据）、对比卡片和有力的收尾。
 
-**Estimated time:** 10-15 minutes | **Cost:** ~$0.15
+**预计耗时：** 12–18 分钟 | **费用：** 约 $0.60
 
-### Seasonal Journey
+### 营销科普视频
 
-> "Create a 30-second Ghibli-style animated video showing the four seasons in a Japanese countryside village — cherry blossoms in spring, fireflies in summer, red maple leaves in autumn, and snow-covered thatched roofs in winter."
+> “制作一段 90 秒的科普视频，讲解营销中的色彩心理学。使用 AI 生成的图像展示不同颜色的联想，并加入色彩如何影响购买决策的数据。”
 
-**What you get:** 6 scenes transitioning through seasons with petal, firefly, sparkle, and mist particles matching each season. Warm-to-cool lighting transitions and ambient seasonal soundtrack.
+**你将获得：** 基于研究的科普视频，包括 AI 生成的色彩心理学插图、条形图、饼图和解说洞察。
 
-**Estimated time:** 10-15 minutes | **Cost:** ~$0.15
-
-### Steampunk Cityscape
-
-> "Make a 30-second anime-style animation of a steampunk city at dusk — airships floating between brass towers, steam rising from street vents, clockwork birds perching on copper lampposts, and a lone inventor walking home through cobblestone streets."
-
-**What you get:** Industrial-fantasy atmosphere with mist and sparkle particles, parallax and zoom camera motion, warm amber lighting overlays, and steampunk-ambient soundtrack.
-
-**Estimated time:** 10-15 minutes | **Cost:** ~$0.15
+**预计耗时：** 15–20 分钟 | **费用：** 约 $1.00
 
 ---
 
-## HyperFrames — HTML/GSAP Motion Graphics (zero-key, ~$0)
+## Animation 流水线：动漫／吉卜力风格（FAL_KEY，约 $0.15）
 
-These use the HyperFrames composition runtime — HTML + CSS + GSAP rendered deterministically to video via headless Chrome + FFmpeg. Perfect for kinetic typography, product promos, launch reels, and website-to-video treatments where the visual grammar is typographic and motion-first.
+这些提示词使用 **Animation 流水线**的 `image_animation` 方案：通过多图交叉淡化、电影感镜头运动、粒子叠加和氛围音乐，让 FLUX 生成的静态图像鲜活起来。无需视频生成 API。每段 30 秒视频的费用约为 $0.15。
 
-**Requirements:** Node.js ≥ 22, FFmpeg, `npx` — no monorepo checkout, the CLI is fetched via `npx @hyperframes/cli` on first run.
+### 吉卜力幻想世界
 
-### Kinetic Product Launch
+> “制作一段 30 秒的吉卜力风格动画视频：金色时刻，云端漂浮着一座魔法图书馆。书本在书架间飘动，暖光穿过彩色玻璃窗，一只小猫趴在书桌上打盹。”
 
-> "Make a 20-second product launch video for a new AI coding assistant called 'Cortex'. Big kinetic typography, three feature callouts, a bold accent color, and a final CTA card. Use the HyperFrames runtime."
+**你将获得：** 6 个动漫场景和 12 张 FLUX 生成图像，包括镜头运动（缩放、平移、Ken Burns、漂移）、闪光与光线粒子、电影感暗角、主标题叠加，以及自动获取并按能量节奏优化起始偏移的氛围音乐。
 
-**What you get:** HTML/GSAP composition with SplitText-style word reveals, staggered feature callouts, accent-driven color accents from a custom playbook, and `hyperframes lint`/`validate` gates passed before render.
+**预计耗时：** 10–15 分钟 | **费用：** 约 $0.15
 
-**Estimated time:** 3-5 minutes | **Cost:** $0
+### 海底探索
 
-### Website → Video Teaser
+> “制作一段 30 秒的动漫风格动画：一座海底神庙被生物发光珊瑚环绕，覆满海苔的古老遗迹静立其中，发光水母从石柱旁缓缓漂过，阳光穿透深蓝海水洒下光束。”
 
-> "Here's my landing page URL: https://example.com. Make me a 15-second social ad for Instagram. Use HyperFrames and pick up the site's real colors and typography."
+**你将获得：** 深海氛围、雾气与闪光粒子、平移与漂移镜头运动、蓝绿色光效叠加、章节标题叠加，以及海洋氛围配乐。
 
-**What you get:** `website-to-hyperframes` workflow — capture the site, extract colors/typography into a `DESIGN.md`, storyboard 3-4 beats, generate narration, build compositions with GSAP timelines, lint + validate + render.
+**预计耗时：** 10–15 分钟 | **费用：** 约 $0.15
 
-**Estimated time:** 8-12 minutes | **Cost:** $0 (or ~$0.05 with premium TTS)
+### 四季之旅
 
-### Launch Reel with Registry Blocks
+> “制作一段 30 秒的吉卜力风格动画视频，展现日本乡村的四季：春日樱花、夏夜萤火虫、秋日红枫，以及冬季白雪覆盖的茅草屋顶。”
 
-> "Create a 25-second launch reel for a developer tools startup. Include a data chart block (showing user growth from HyperFrames registry), kinetic title cards, and a shader transition between scenes."
+**你将获得：** 6 个随四季过渡的场景，并为每个季节搭配花瓣、萤火虫、闪光和雾气粒子。画面光线从暖色过渡到冷色，同时配有四季氛围音乐。
 
-**What you get:** `hyperframes add data-chart` + `hyperframes add shader-transition` installed as sub-compositions, wired into index.html, animated with GSAP timelines. Registry blocks are HyperFrames-only; Remotion can't install them.
+**预计耗时：** 10–15 分钟 | **费用：** 约 $0.15
 
-**Estimated time:** 5-10 minutes | **Cost:** $0
+### 蒸汽朋克城市景观
 
----
+> “制作一段 30 秒的动漫风格动画：黄昏时分的蒸汽朋克城市里，飞艇穿行于黄铜高塔之间，蒸汽从街道路口升起，发条鸟停在铜制路灯上，一名孤独的发明家沿着鹅卵石街道走回家。”
 
-## Full Setup Prompts (~$1-$3)
+**你将获得：** 工业幻想氛围、雾气与闪光粒子、视差与缩放镜头运动、暖琥珀色光效叠加，以及蒸汽朋克氛围配乐。
 
-With video generation (Veo, Kling, Runway) + premium TTS (ElevenLabs) + music (Suno). These produce broadcast-quality content.
-
-### Cinematic Trailer
-
-> "Create a cinematic 30-second trailer for a sci-fi concept: humanity receives a warning from 1000 years in the future. Use motion video clips, a cinematic soundtrack, and dramatic title cards."
-
-**What you get:** Veo/Kling-generated motion clips, cinematic title cards with signal texture effects, Hans Zimmer-style soundtrack, and dramatic pacing.
-
-**Estimated time:** 25-40 minutes | **Cost:** ~$2.50
-
-### Animated Explainer (Premium)
-
-> "Make a 90-second animated explainer about quantum computing for middle school students. Use a fun narrator voice, custom soundtrack, and AI-generated visuals of qubits and quantum gates."
-
-**What you get:** Full production: ElevenLabs narration, FLUX visuals, Suno soundtrack, Remotion composition with animated charts and text overlays.
-
-**Estimated time:** 20-30 minutes | **Cost:** ~$2.00
-
-### Avatar Spokesperson
-
-> "Create a 60-second avatar spokesperson video announcing a company rebrand. Professional tone, clean background, with animated text overlays showing the new brand values."
-
-**What you get:** HeyGen avatar video with TTS narration, overlaid section titles, stat reveals, and branded text cards.
-
-**Estimated time:** 15-25 minutes | **Cost:** ~$1.50
+**预计耗时：** 10–15 分钟 | **费用：** 约 $0.15
 
 ---
 
-## For Specific Audiences
+## HyperFrames：HTML/GSAP 动效（零密钥，约 $0）
 
-### For Teachers
+这些提示词使用 HyperFrames 合成运行时：通过无头 Chrome 和 FFmpeg，将 HTML + CSS + GSAP 确定性地渲染为视频。它非常适合动态排版、产品宣传片、发布短片，以及以排版和动效为核心视觉语言的网页转视频作品。
 
-> "Create a 3-minute animated explainer about photosynthesis for 8th graders. Make it fun and visual — use diagrams, charts showing energy conversion, and a friendly narrator voice."
+**环境要求：** Node.js ≥ 22、FFmpeg、`npx`。无需检出 monorepo；首次运行时，CLI 会通过 `npx @hyperframes/cli` 获取。
 
-### For Developer Advocates
+### 动态排版产品发布片
 
-> "Make a 60-second product demo video for our new REST API. Show the request/response flow with animated diagrams, include latency benchmarks as bar charts, and end with a quick start code snippet."
+> “为一款名为‘Cortex’的新 AI 编程助手制作 20 秒产品发布视频。使用醒目的动态排版、三个功能亮点、一种大胆的强调色，并以 CTA 卡片收尾。使用 HyperFrames 运行时。”
 
-### For Indie Hackers
+**你将获得：** HTML/GSAP 合成，包括 SplitText 风格的逐词揭示、错落出现的功能亮点、来自自定义 playbook 的强调色设计，并在渲染前通过 `hyperframes lint`／`validate` 质量门槛。
 
-> "Create a 30-second Product Hunt launch video for my SaaS tool that helps teams track OKRs. Show 3 key features with animated stat cards and comparison views. Upbeat, modern."
+**预计耗时：** 3–5 分钟 | **费用：** $0
 
-### For Content Creators
+### 网页 → 视频预告片
 
-> "Take my recent blog post about AI trends in 2026 and turn it into a 90-second video. Research current data to ground it, use animated charts for the statistics, and add a conversational narrator."
+> “这是我的落地页 URL：https://example.com。请为 Instagram 制作一段 15 秒的社交广告。使用 HyperFrames，并沿用网站真实的配色和字体排版。”
 
----
+**你将获得：** `website-to-hyperframes` 工作流：抓取网站，将配色和字体排版提取到 `DESIGN.md`，为 3–4 个节拍制作分镜，生成旁白，使用 GSAP 时间线构建合成，并依次执行 lint、validate 和 render。
 
-## Tips for Better Results
+**预计耗时：** 8–12 分钟 | **费用：** $0（使用高级 TTS 时约 $0.05）
 
-**Be specific about visual components.** Instead of "make it look good," say "use bar charts for the comparison, a donut chart for the breakdown, and stat cards for the key numbers."
+### 使用 Registry Blocks 的发布短片
 
-**Mention your target audience.** "For junior developers" or "for 8th graders" dramatically changes the script, pacing, and visual style.
+> “为一家开发者工具初创公司制作 25 秒发布短片。加入一个数据图表 block（展示来自 HyperFrames registry 的用户增长数据）、动态标题卡，以及场景间的 shader 转场。”
 
-**Specify duration.** The agent optimizes content density based on your target length. 45 seconds needs ~110 words of narration; 90 seconds needs ~225 words.
+**你将获得：** 通过 `hyperframes add data-chart` + `hyperframes add shader-transition` 安装为子合成，接入 `index.html`，并使用 GSAP 时间线制作动画。Registry blocks 仅支持 HyperFrames，Remotion 无法安装。
 
-**Request specific chart types.** The system has bar charts, line charts, pie/donut charts, KPI grids, progress bars, comparison cards, and callout boxes. Name the ones you want.
-
-**Ask for the zero-key path.** If you want free results, say "use only free tools" or "no paid APIs." The agent will route to Piper TTS, stock media, and Remotion-only compositions.
-
-**For anime/Ghibli-style videos,** mention the style explicitly: "Ghibli-style" or "anime-style." Describe the atmosphere, lighting, and mood. The agent uses the Animation pipeline with FLUX image generation and Remotion's anime scene engine — multi-image crossfade, camera motion, and particle overlays create the illusion of animation from still images. Cost is minimal (~$0.15 for 30 seconds).
+**预计耗时：** 5–10 分钟 | **费用：** $0
 
 ---
 
-## Contributing Prompts
+## 完整配置提示词（约 $1–$3）
 
-Found a prompt that produces great results? Share it:
+搭配视频生成（Veo、Kling、Runway）、高级 TTS（ElevenLabs）和音乐（Suno），可以制作达到播出品质的内容。
 
-1. Open a [GitHub Discussion](../../discussions) in the "Prompt Exchange" category
-2. Include: your prompt, a screenshot or description of the output, cost, and which providers you used
-3. The best prompts get added to this gallery with credit
+### 电影感预告片
+
+> “为一个科幻概念制作 30 秒电影感预告片：人类收到一则来自 1000 年后的警告。使用动态视频片段、电影感配乐和富有戏剧张力的标题卡。”
+
+**你将获得：** Veo／Kling 生成的动态视频片段、带信号纹理效果的电影感标题卡、Hans Zimmer 风格配乐，以及富有戏剧张力的节奏。
+
+**预计耗时：** 25–40 分钟 | **费用：** 约 $2.50
+
+### 动画科普视频（高级）
+
+> “为初中生制作一段 90 秒的量子计算动画科普视频。使用有趣的旁白声音、自定义配乐，以及 AI 生成的量子比特和量子门视觉素材。”
+
+**你将获得：** 完整制作成片：ElevenLabs 旁白、FLUX 视觉素材、Suno 配乐，以及带动态图表和文字叠加的 Remotion 合成。
+
+**预计耗时：** 20–30 分钟 | **费用：** 约 $2.00
+
+### 虚拟人出镜
+
+> “制作一段 60 秒的虚拟人出镜视频，宣布公司品牌重塑。保持专业语气和简洁背景，并用动态文字叠加展示新的品牌价值观。”
+
+**你将获得：** HeyGen 虚拟人视频和 TTS 旁白，并叠加章节标题、统计数字揭示动画及品牌化文字卡片。
+
+**预计耗时：** 15–25 分钟 | **费用：** 约 $1.50
 
 ---
 
-*This gallery is community-maintained. All prompts have been tested and produce complete videos.*
+## 面向特定受众
+
+### 教师
+
+> “为八年级学生制作一段 3 分钟的光合作用动画科普视频。内容要有趣、直观，使用示意图、展示能量转换的图表，并搭配亲切的旁白声音。”
+
+### 开发者布道师
+
+> “为我们的新 REST API 制作一段 60 秒的产品演示视频。使用动态示意图展示请求／响应流程，用条形图呈现延迟基准测试，并以快速开始代码片段收尾。”
+
+### 独立开发者
+
+> “为我的 SaaS 工具制作一段 30 秒的 Product Hunt 发布视频。这款工具帮助团队跟踪 OKRs。使用动态统计卡片和对比视图展示三项核心功能。整体风格轻快、现代。”
+
+### 内容创作者
+
+> “把我最近一篇关于 2026 年 AI 趋势的博客文章改编成 90 秒视频。研究最新数据作为内容依据，使用动态图表展示统计数据，并加入自然对话感的旁白。”
+
+---
+
+## 获得更好效果的技巧
+
+**明确指定视觉组件。** 不要只说“让它看起来不错”，可以说“使用条形图进行对比、使用环形图展示构成，并用统计卡片突出关键数字”。
+
+**说明目标受众。** “面向初级开发者”或“面向八年级学生”会显著改变脚本、节奏和视觉风格。
+
+**指定时长。** 智能体会根据目标时长优化内容密度。45 秒需要约 110 个英文旁白词，90 秒需要约 225 个英文旁白词。
+
+**指定图表类型。** 系统提供条形图、折线图、饼图／环形图、KPI 网格、进度条、对比卡片和标注框。直接说出你想要的类型。
+
+**要求使用零密钥路径。** 如果想免费生成，请说明“只使用免费工具”或“不使用付费 API”。智能体会选择 Piper TTS、素材库媒体和纯 Remotion 合成。
+
+**制作动漫／吉卜力风格视频时，** 请明确说明“吉卜力风格”或“动漫风格”，并描述氛围、光线和情绪。智能体会使用 Animation 流水线，结合 FLUX 图像生成和 Remotion 动漫场景引擎，通过多图交叉淡化、镜头运动和粒子叠加，让静态图像产生动画观感。费用很低（30 秒约 $0.15）。
+
+---
+
+## 贡献提示词
+
+发现了效果出色的提示词？欢迎分享：
+
+1. 在“Prompt Exchange”分类中发起一篇 [GitHub Discussion](../../discussions)
+2. 提供你的提示词、成片截图或效果描述、费用，以及使用的提供商
+3. 最优秀的提示词将署名收录到本画廊中
+
+---
+
+*本画廊由社区共同维护。所有提示词均经过测试，可以生成完整视频。*
