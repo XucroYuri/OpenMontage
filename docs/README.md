@@ -15,6 +15,7 @@
 ## 架构与开发
 
 - [系统架构](ARCHITECTURE.md)
+- [外部依赖审计报告](EXTERNAL_DEPENDENCIES_AUDIT.md)
 - [Pull Request 审查指南](PR_REVIEW_GUIDE.md)
 - [Pull Request 提交模板](../.github/PULL_REQUEST_TEMPLATE.md)
 - [ComfyUI 适配器计划](comfyui-adapter-plan.md)
