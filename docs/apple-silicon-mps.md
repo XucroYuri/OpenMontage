@@ -1,63 +1,56 @@
-# Apple Silicon (MPS) Support
+> **简体中文（主版本）** | [English (secondary version)](apple-silicon-mps.en.md)
 
-OpenMontage supports Apple Silicon Macs (M1/M2/M3/M4/M5) via PyTorch's
-Metal Performance Shaders (MPS) backend. Local GPU tools — video generation,
-upscaling, and face restoration — automatically detect and use MPS when
-available.
+# Apple Silicon (MPS) 支持
 
-## Requirements
+OpenMontage 通过 PyTorch 的 Metal Performance Shaders (MPS) 后端支持 Apple Silicon Mac（M1/M2/M3/M4/M5）。本地 GPU 工具——包括视频生成、放大和人脸修复——会自动检测并使用可用的 MPS。
 
-- macOS 12.3 (Monterey) or later
-- Apple Silicon Mac (M-series chip)
+## 要求
+
+- macOS 12.3 (Monterey) 或更高版本
+- Apple Silicon Mac（M 系列芯片）
 - Python 3.10+
 
-## Quick Setup
+## 快速设置
 
 ```bash
-# Enable local generation
+# 启用本地生成
 export VIDEO_GEN_LOCAL_ENABLED=true
 
-# Install dependencies — MPS support is included in the default torch wheel
+# 安装依赖——默认 torch wheel 已包含 MPS 支持
 uv pip install diffusers transformers accelerate torch pillow requests
 
-# For upscaling and face restoration
+# 用于放大和人脸修复
 uv pip install realesrgan gfpgan
 ```
 
-No special CUDA build or separate MPS package is needed — `uv pip install torch`
-on macOS automatically includes MPS support.
+无需特殊的 CUDA 构建或单独的 MPS 软件包——在 macOS 上运行 `uv pip install torch` 时会自动包含 MPS 支持。
 
-## How It Works
+## 工作原理
 
-The `get_torch_device()` helper in `tools/video/_shared.py` detects the best
-available device:
+`tools/video/_shared.py` 中的 `get_torch_device()` 辅助函数会检测最佳可用设备：
 
-1. **CUDA** (NVIDIA GPU) — used when available; fastest for diffusion models
-2. **MPS** (Apple Silicon Metal) — used on M-series Macs; good performance
-3. **CPU** — fallback, always available but significantly slower
+1. **CUDA**（NVIDIA GPU）——可用时优先使用；运行扩散模型最快
+2. **MPS**（Apple Silicon Metal）——用于 M 系列 Mac；性能良好
+3. **CPU**——后备方案，始终可用，但速度明显更慢
 
-Device selection is automatic. All local GPU tools (`upscale`, `face_restore`,
-`ltx_video_local`, `wan_video_local`, etc.) route through this helper.
+设备选择会自动完成。所有本地 GPU 工具（`upscale`、`face_restore`、`ltx_video_local`、`wan_video_local` 等）都通过此辅助函数选择设备。
 
-## Known Limitations
+## 已知限制
 
-- **VRAM**: Apple Silicon uses unified memory. Models that require >16 GB VRAM
-  may not fit on 16 GB Macs. Check the tool's `resource_profile.vram_mb`.
-- **bfloat16**: Not supported on MPS. The pipeline automatically uses float16
-  on MPS and float32 on CPU.
-- **CPU offloading**: `enable_model_cpu_offload()` is CUDA-only. On MPS, the
-  pipeline falls back to direct device placement.
-- **Half-precision in Real-ESRGAN**: fp16 can produce NaN artifacts on MPS, so
-  upscaling automatically uses fp32 on non-CUDA devices.
+- **VRAM**：Apple Silicon 使用统一内存。需要超过 16 GB VRAM 的模型可能无法在配备 16 GB 内存的 Mac 上运行。请检查工具的 `resource_profile.vram_mb`。
+- **bfloat16**：MPS 不支持。流水线会在 MPS 上自动使用 float16，在 CPU 上使用 float32。
+- **CPU 卸载**：`enable_model_cpu_offload()` 仅支持 CUDA。在 MPS 上，流水线会改用直接设备放置。
+- **Real-ESRGAN 的半精度模式**：fp16 在 MPS 上可能产生 NaN 瑕疵，因此放大操作会在非 CUDA 设备上自动使用 fp32。
 
-## Verifying MPS Is Active
+## 验证 MPS 是否启用
 
 ```python
 from tools.video._shared import get_torch_device
-print(get_torch_device())  # Should print "mps" on Apple Silicon
+print(get_torch_device())  # 在 Apple Silicon 上应输出 "mps"
 ```
 
-If this prints `"cpu"` on an Apple Silicon Mac, verify:
-- macOS version is 12.3+
-- PyTorch is installed (`uv pip install torch`)
-- You're running native ARM Python (not Rosetta x86)
+如果这段代码在 Apple Silicon Mac 上输出 `"cpu"`，请确认：
+
+- macOS 版本为 12.3+
+- 已安装 PyTorch（`uv pip install torch`）
+- 正在运行原生 ARM Python（而非 Rosetta x86）

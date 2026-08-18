@@ -1,7 +1,9 @@
-# Contributing to OpenMontage
+> **简体中文（主版本）** | [English (secondary version)](CONTRIBUTING.en.md)
 
-Thank you for improving OpenMontage. We do not require a Contributor License Agreement (CLA), Developer Certificate of Origin sign-off, or any separate contribution contract.
+# 为 OpenMontage 贡献
 
-By submitting a pull request, you confirm that you have the right to contribute its contents. Contributions must be compatible with the repository's [AGPLv3 license](LICENSE), and accepted contributions remain available under that license.
+感谢您帮助改进 OpenMontage。我们不要求签署贡献者许可协议（Contributor License Agreement，CLA）、开发者原创声明（Developer Certificate of Origin，DCO），也不要求签订任何单独的贡献协议。
 
-Please keep pull requests focused and include tests when behavior changes.
+提交 pull request 即表示您确认自己有权贡献其中的内容。贡献内容必须与仓库的 [AGPLv3 许可证](LICENSE)兼容；被接受的贡献也将继续依据该许可证提供。
+
+请让每个 pull request 聚焦于明确的改动；如果行为发生变化，请同时添加测试。

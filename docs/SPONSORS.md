@@ -1,28 +1,30 @@
-# Sponsors
+> **简体中文（主版本）** | [English (secondary version)](SPONSORS.en.md)
 
-This document defines how sponsor logos are added to the OpenMontage README.
+# 赞助商
 
-## Sponsor Asset Convention
+本文档说明如何将赞助商徽标添加到 OpenMontage README。
 
-- Store sponsor logos in `assets/sponsors/`.
-- Use a lowercase kebab-case filename based on the sponsor name, for example `acme-video.svg`.
-- Prefer SVG. Use PNG only when the sponsor cannot provide vector artwork.
-- Keep logos transparent, tightly cropped, and readable at `44px` height.
-- Use the sponsor's official website or product page as the link target.
-- Use descriptive alt text: `Acme Video logo`, not just `logo`.
+## 赞助商素材规范
 
-## README Snippet
+- 将赞助商徽标存放在 `assets/sponsors/`。
+- 根据赞助商名称使用全小写 kebab-case 文件名，例如 `acme-video.svg`。
+- 优先使用 SVG。只有在赞助商无法提供矢量图时才使用 PNG。
+- 徽标应使用透明背景、紧密裁切，并确保在 `44px` 高度下清晰可辨。
+- 链接目标应使用赞助商的官方网站或产品页面。
+- 使用描述明确的替代文本，例如 `Acme Video logo`，不要只写 `logo`。
 
-Add each sponsor as a table row inside the `Sponsors` section near the top of `README.md`:
+## README 代码片段
+
+在 `README.md` 顶部附近的 `Sponsors` 部分中，将每个赞助商添加为一个表格行：
 
 ```html
 <tr>
 <td width="180" align="center"><a href="https://example.com"><img src="assets/sponsors/example-sponsor.svg" alt="Example Sponsor" width="150"></a></td>
-<td><strong>Example Sponsor</strong> helps OpenMontage users do something concrete. Mention the useful product outcome, then close with a short <a href="https://example.com">CTA link</a>.</td>
+<td><strong>Example Sponsor</strong> 帮助 OpenMontage 用户实现具体目标。先说明产品能带来的实用成果，最后附上简短的<a href="https://example.com">行动号召链接</a>。</td>
 </tr>
 ```
 
-For a sponsor with separate light and dark logos, use a `picture` element:
+如果赞助商分别提供浅色和深色徽标，请使用 `picture` 元素：
 
 ```html
 <tr>
@@ -34,18 +36,18 @@ For a sponsor with separate light and dark logos, use a `picture` element:
     </picture>
   </a>
 </td>
-<td><strong>Example Sponsor</strong> helps OpenMontage users do something concrete. Mention the useful product outcome, then close with a short <a href="https://example.com">CTA link</a>.</td>
+<td><strong>Example Sponsor</strong> 帮助 OpenMontage 用户实现具体目标。先说明产品能带来的实用成果，最后附上简短的<a href="https://example.com">行动号召链接</a>。</td>
 </tr>
 ```
 
-## Intake Checklist
+## 接入检查清单
 
-Before adding a sponsor, collect:
+添加赞助商之前，请收集：
 
-- Sponsor display name
-- Sponsor URL
-- Logo file, preferably SVG
-- Confirmation that OpenMontage has permission to display the logo in the README
-- Any required trademark wording, if the sponsor has one
+- 赞助商显示名称
+- 赞助商 URL
+- 徽标文件，最好使用 SVG
+- OpenMontage 获准在 README 中展示该徽标的确认信息
+- 赞助商要求使用的任何商标声明（如有）
 
-Do not add tracking URLs, affiliate redirects, or claims about endorsement unless they are explicitly approved by the project maintainer.
+除非项目维护者明确批准，否则不要添加跟踪 URL、联盟营销重定向，也不要声称赞助商对项目背书。
