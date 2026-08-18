@@ -33,6 +33,12 @@ Projects without checkpoints degrade to a disk-discovery view that can still sho
 
 The UI defaults to Simplified Chinese. Use the top-right control to switch to English; the choice is stored in browser local storage.
 
+## Artifact and error presentation contract
+
+Backlot provides Chinese presentation labels for canonical artifact types and top-level fields in `schemas/artifacts/`, while leaving JSON keys, enum values, and source content unchanged. The stage drawer still shows byte-faithful source data for diagnosis and cross-tool compatibility.
+
+New failed checkpoints may provide `error_message` (localized user summary), `technical_error` (unaltered diagnostic detail), `error_category` (canonical category), and `next_actions` (localized recovery steps). The legacy `error` field remains supported as a fallback technical error. The stage rail shows only a user-facing summary; the original technical error is expandable in the stage detail.
+
 ## Run the demo
 
 Watch the live updates without running a real production:

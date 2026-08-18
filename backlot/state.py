@@ -164,6 +164,10 @@ def _build_stage_rail(
             "review": cp.get("review") if cp else None,
             "cost_snapshot": cp.get("cost_snapshot") if cp else None,
             "error": cp.get("error") if cp else None,
+            "error_message": cp.get("error_message") if cp else None,
+            "technical_error": (cp.get("technical_error") or cp.get("error")) if cp else None,
+            "error_category": cp.get("error_category") if cp else None,
+            "next_actions": cp.get("next_actions") if cp else None,
             "human_approved": cp.get("human_approved") if cp else None,
             "partial_progress": (cp.get("metadata") or {}).get("partial_progress") if cp else None,
             "versions": len(versions) + (1 if cp else 0),
@@ -205,6 +209,10 @@ def _build_stage_rail(
             "review": cp.get("review"),
             "cost_snapshot": cp.get("cost_snapshot"),
             "error": cp.get("error"),
+            "error_message": cp.get("error_message"),
+            "technical_error": cp.get("technical_error") or cp.get("error"),
+            "error_category": cp.get("error_category"),
+            "next_actions": cp.get("next_actions"),
             "human_approved": cp.get("human_approved"),
             "partial_progress": None,
             "versions": 1 + len(history.get(name, [])),
@@ -229,17 +237,26 @@ def _build_stage_rail(
 # ---------------------------------------------------------------------------
 
 ARTIFACT_FILES = {
+    "action_timeline": "action_timeline.json",
     "research_brief": "research_brief.json",
     "brief": "brief.json",
     "proposal_packet": "proposal_packet.json",
     "script": "script.json",
     "scene_plan": "scene_plan.json",
+    "character_design": "character_design.json",
+    "rig_plan": "rig_plan.json",
+    "pose_library": "pose_library.json",
+    "character_qa_report": "character_qa_report.json",
     "asset_manifest": "asset_manifest.json",
+    "cost_log": "cost_log.json",
     "edit_decisions": "edit_decisions.json",
     "render_report": "render_report.json",
     "final_review": "final_review.json",
     "publish_log": "publish_log.json",
     "decision_log": "decision_log.json",
+    "review": "review.json",
+    "source_media_review": "source_media_review.json",
+    "video_analysis_brief": "video_analysis_brief.json",
 }
 
 

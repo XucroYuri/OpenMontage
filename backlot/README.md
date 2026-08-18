@@ -33,6 +33,19 @@ Backlot 不写入项目目录，也不要求 Agent 手动同步界面。`watchfi
 
 界面默认使用简体中文；右上角可切换 English，选择保存在浏览器本地存储中。
 
+## 产物与错误展示契约
+
+Backlot 为 `schemas/artifacts/` 中的规范 artifact 类型和顶层字段提供中文显示标签，但不会改写 JSON 字段名、枚举值或原始内容。阶段抽屉中的原始数据仍按磁盘内容逐字显示，以便调试和跨工具兼容。
+
+新的失败检查点可以同时写入：
+
+- `error_message`：按 `interaction.locale` 编写的用户可读原因；
+- `technical_error`：原始技术错误，不翻译、不丢弃；
+- `error_category`：规范错误类别；
+- `next_actions`：面向用户的恢复步骤。
+
+旧版 `error` 字段继续受支持，并作为 `technical_error` 的后备来源。阶段轨道只显示本地化摘要；打开阶段详情后，可展开查看原始技术错误。
+
 ## 运行演示
 
 无需真实制作任务即可观察看板实时更新：

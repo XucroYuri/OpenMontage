@@ -101,11 +101,13 @@ def _validate_style_playbook(style_playbook: str | None) -> None:
     if style_playbook is None:
         return
     try:
-        from styles.playbook_loader import list_playbooks, load_playbook
+        from styles.playbook_loader import load_playbook
 
         load_playbook(style_playbook)
     except Exception as exc:
         try:
+            from styles.playbook_loader import list_playbooks
+
             available = list_playbooks()
         except Exception:
             available = []
@@ -362,7 +364,8 @@ def _archive_superseded_checkpoint(path: Path, stage: str) -> None:
         return
     try:
         with open(path, encoding="utf-8") as f:
-            existing = json.load(f)
+            loaded = json.load(f)
+        existing: dict[str, Any] = loaded if isinstance(loaded, dict) else {}
     except (json.JSONDecodeError, OSError):
         existing = {}
     if existing.get("status") == "in_progress":
@@ -409,10 +412,18 @@ def _merge_decision_log(
             "decisions": [],
         }
 
-    existing_ids = {d["decision_id"] for d in existing.get("decisions", [])}
+    decisions = existing.get("decisions")
+    if not isinstance(decisions, list):
+        decisions = []
+        existing["decisions"] = decisions
+    existing_ids = {
+        d["decision_id"]
+        for d in decisions
+        if isinstance(d, dict) and isinstance(d.get("decision_id"), str)
+    }
     for decision in new_log.get("decisions", []):
-        if decision.get("decision_id") not in existing_ids:
-            existing["decisions"].append(decision)
+        if isinstance(decision, dict) and decision.get("decision_id") not in existing_ids:
+            decisions.append(decision)
 
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -431,10 +442,14 @@ def write_checkpoint(
     checkpoint_policy: str = "guided",
     human_approval_required: bool = False,
     human_approved: bool = False,
-    review: Optional[dict] = None,
-    cost_snapshot: Optional[dict] = None,
+    review: Optional[dict[str, Any]] = None,
+    cost_snapshot: Optional[dict[str, Any]] = None,
     error: Optional[str] = None,
-    metadata: Optional[dict] = None,
+    error_message: Optional[str] = None,
+    technical_error: Optional[str] = None,
+    error_category: Optional[str] = None,
+    next_actions: Optional[list[str]] = None,
+    metadata: Optional[dict[str, Any]] = None,
 ) -> Path:
     """Write a checkpoint file for a pipeline stage."""
     # Backfill identity fields from the project marker so omitted kwargs
@@ -521,6 +536,14 @@ def write_checkpoint(
         checkpoint["cost_snapshot"] = cost_snapshot
     if error is not None:
         checkpoint["error"] = error
+    if error_message is not None:
+        checkpoint["error_message"] = error_message
+    if technical_error is not None:
+        checkpoint["technical_error"] = technical_error
+    if error_category is not None:
+        checkpoint["error_category"] = error_category
+    if next_actions is not None:
+        checkpoint["next_actions"] = next_actions
     if metadata is not None:
         checkpoint["metadata"] = metadata
 

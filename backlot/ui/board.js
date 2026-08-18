@@ -5,7 +5,7 @@ import {
   getJSON, mediaURL, subscribe, thumbURL, waveBars,
 } from "/ui/lib.js";
 import {
-  artifactLabel, assetTypeLabel, canonicalValueLabel, decisionCategoryLabel, decisionSubjectLabel,
+  artifactLabel, assetTypeLabel, canonicalValueLabel, decisionCategoryLabel, decisionSubjectLabel, errorCategoryLabel,
   displayLabel, getLocale, pipelineLabel, reviewDecisionLabel, setLocale, shotValueLabel, stageLabel, statusLabel, t,
 } from "/ui/i18n.js";
 
@@ -140,7 +140,9 @@ function stageSub(st) {
     return t("stage.inProgress");
   }
   if (st.status === "in_progress") return t("stage.inProgress");
-  if (st.status === "failed") return st.error ? String(st.error).slice(0, 60) : t("stage.failed");
+  if (st.status === "failed") {
+    return shortText(st.error_message || t("stage.failedSummary"), 60);
+  }
   if (st.timestamp) {
     const approved = st.gated && st.human_approved ? ` · ${t("stage.approved")}` : "";
     return fmtClock(st.timestamp) + approved;
@@ -227,6 +229,26 @@ function renderDrawer(s) {
   if (!st) return null;
 
   const body = el("div", { class: "drawer-body" });
+
+  if (st.status === "failed") {
+    const summary = st.error_message || t("stage.failedSummary");
+    const technical = st.technical_error || st.error;
+    const actions = Array.isArray(st.next_actions) ? st.next_actions.filter(Boolean) : [];
+    body.append(el("section", { class: "stage-error", role: "alert" },
+      el("div", { class: "stage-error-label" }, t("error.summary")),
+      el("p", { class: "stage-error-message" }, summary),
+      st.error_category ? el("p", { class: "stage-error-category" },
+        `${t("error.category")}：${errorCategoryLabel(st.error_category)}`) : null,
+      actions.length ? el("div", { class: "stage-error-actions" },
+        el("b", {}, t("error.nextActions")),
+        el("ul", {}, actions.map((action) => el("li", {}, action))),
+      ) : null,
+      technical ? el("details", { class: "stage-technical-error" },
+        el("summary", {}, t("error.technicalDetails")),
+        el("pre", {}, String(technical)),
+      ) : null,
+    ));
+  }
 
   if (st.review) {
     const metrics = reviewMetrics(st.review);

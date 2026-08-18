@@ -28,6 +28,7 @@ const messages = {
     "stage.doneScenes": "已完成 {count} 个场景",
     "stage.inProgress": "正在进行",
     "stage.failed": "失败",
+    "stage.failedSummary": "此阶段失败，请打开详情查看原因",
     "stage.approved": "已批准",
     "stage.unlisted": "未列入清单",
     "stage.undeclared": "“{stage}”已运行，但未在当前流水线清单中声明",
@@ -112,6 +113,10 @@ const messages = {
     "replay.start": "回放制作过程",
     "replay.live": "返回实时",
     "error.projectNotFound": "未找到项目",
+    "error.summary": "失败原因",
+    "error.category": "错误类别",
+    "error.nextActions": "建议的后续操作",
+    "error.technicalDetails": "原始技术错误",
     "field.platform": "发布平台",
     "field.duration": "时长",
     "field.tone": "基调",
@@ -143,7 +148,7 @@ const messages = {
     "slate.awaiting": "AWAITING YOU", "slate.stalled": "STALLED?", "slate.live": "LIVE", "slate.idle": "IDLE",
     "slate.spend": "generation spend", "stage.awaiting": "awaiting your approval\nreply in chat to continue",
     "stage.stalled": "stalled? no activity for {minutes}m\nask the agent for status", "stage.doneScenes": "{count} scenes done",
-    "stage.inProgress": "in progress", "stage.failed": "failed", "stage.approved": "approved",
+    "stage.inProgress": "in progress", "stage.failed": "failed", "stage.failedSummary": "Stage failed — open details for the cause", "stage.approved": "approved",
     "stage.unlisted": "unlisted", "stage.undeclared": "\"{stage}\" ran but isn't declared by this pipeline's manifest",
     "review.critical": "{count} critical", "review.suggestions": "{count} suggestions", "review.nitpicks": "{count} nitpicks",
     "review.focus": "review focus {value}", "artifact.notRun": "This stage hasn't run yet.",
@@ -184,6 +189,8 @@ const messages = {
     "notice.awaitingBodyBefore": "The agent is paused at this gate — reply ", "notice.inChat": "in chat",
     "notice.awaitingBodyAfter": " to approve or request changes.", "replay.scrub": "scrub the whole run",
     "replay.start": "REPLAY RUN", "replay.live": "LIVE", "error.projectNotFound": "PROJECT NOT FOUND",
+    "error.summary": "Failure summary", "error.category": "Error category",
+    "error.nextActions": "Suggested next actions", "error.technicalDetails": "Original technical error",
     "field.platform": "platform", "field.duration": "duration", "field.tone": "tone", "field.style": "style",
     "field.runtime": "runtime", "field.pipeline": "pipeline", "field.estimatedCost": "estimated cost",
     "field.concepts": "concepts", "field.sources": "sources", "field.dataPoints": "data points", "field.angles": "angles",
@@ -213,7 +220,9 @@ const artifactNames = {
     research_brief: "研究简报", proposal_packet: "制作提案", brief: "创意简报", script: "脚本",
     scene_plan: "场景计划", character_design: "角色设计", rig_plan: "绑定规划", asset_manifest: "素材清单",
     edit_decisions: "剪辑决策", render_report: "渲染报告", final_review: "最终审查", publish_log: "发布记录",
-    decision_log: "决策记录"
+    decision_log: "决策记录", action_timeline: "动作时间线", character_qa_report: "角色质量报告",
+    pose_library: "姿势库", cost_log: "费用记录", review: "审查报告",
+    source_media_review: "源媒体审查", video_analysis_brief: "视频分析简报"
   }
 };
 
@@ -228,6 +237,8 @@ const statusNames = {
 const fieldNames = {
   "zh-CN": {
     title: "标题", name: "名称", display_name: "显示名称", description: "描述", summary: "摘要", status: "状态",
+    stage: "阶段", sections: "段落", scenes: "场景", assets: "素材", cuts: "剪辑点", outputs: "输出",
+    sources: "来源", data_points: "数据点",
     topic: "主题", hook: "开场钩子", target_platform: "发布平台", target_duration_seconds: "目标时长",
     total_duration_seconds: "总时长", duration_seconds: "时长", tone: "基调", style: "风格", platform: "平台",
     render_runtime: "合成引擎", pipeline: "流水线", locale: "语言区域", source_language: "源语言",
@@ -240,7 +251,23 @@ const fieldNames = {
     estimated_usd: "预估费用", actual_usd: "实际费用", total_cost_usd: "总费用", output_path: "输出路径",
     file_size_bytes: "文件大小", codec: "编码器", fps: "帧率", width: "宽度", height: "高度",
     checks: "检查项", findings: "审查发现", issues: "问题", language: "语言", narration: "旁白",
-    dialogue: "对白", headline: "标题文案", hashtags: "话题标签", metadata: "元数据", delivery_note: "交付说明"
+    dialogue: "对白", headline: "标题文案", hashtags: "话题标签", metadata: "元数据", delivery_note: "交付说明",
+    angle_options: "角度备选", angles_discovered: "发现的内容角度", approval: "审批信息",
+    audience_insights: "受众洞察", audio: "音频方案", bespoke: "定制编排", budget_reserved_usd: "预留预算",
+    budget_spent_usd: "已用预算", budget_total_usd: "总预算", characters: "角色", composition_mode: "合成模式",
+    concept_options: "概念备选", content_analysis: "内容分析", core_message: "核心信息", cta: "行动号召",
+    decision_log_ref: "决策记录引用", decisions: "决策", entries: "记录条目", expert_voices: "专家观点",
+    files: "文件", final_review_ref: "最终审查引用", issues_found: "发现的问题", key_points: "要点",
+    keyframes: "关键帧", landscape: "领域概览", music: "音乐方案", narration_transcript: "旁白转录",
+    overlays: "叠加元素", planning_implications: "制作规划影响", preview_path: "预览路径",
+    recommended_action: "建议操作", reference_material: "参考资料", render_grammar: "渲染语法",
+    render_time_seconds: "渲染耗时", renderer_family: "渲染器系列", replication_guidance: "复刻指导",
+    research_date: "研究日期", research_summary: "研究摘要", round: "审查轮次", selected_angle: "选定角度",
+    slideshow_risk_score: "幻灯片化风险评分", source: "源文件", structure_analysis: "结构分析",
+    style_playbook: "风格 Playbook", style_profile: "风格画像", subtitles: "字幕方案", target_audience: "目标受众",
+    transitions: "转场方案", trending: "趋势", verification_notes: "验证说明", visual_references: "视觉参考",
+    voice_performance: "声音表演", warnings: "警告", error_message: "用户可读错误", technical_error: "技术错误",
+    error_category: "错误类别", next_actions: "后续操作"
   }
 };
 
@@ -307,6 +334,13 @@ const assetTypeNames = {
   "zh-CN": {
     image: "图像", video: "视频", diagram: "图表", animation: "动画", audio: "音频",
     narration: "旁白", music: "音乐", sfx: "音效", subtitle: "字幕"
+  }
+};
+
+const errorCategoryNames = {
+  "zh-CN": {
+    configuration: "配置错误", dependency: "依赖缺失", provider: "提供商错误", validation: "数据校验错误",
+    runtime: "运行时错误", budget: "预算限制", approval: "审批限制", unknown: "未分类错误"
   }
 };
 
@@ -381,4 +415,8 @@ export function shotValueLabel(value) {
 
 export function assetTypeLabel(value) {
   return assetTypeNames[activeLocale]?.[value] || String(value || "");
+}
+
+export function errorCategoryLabel(value) {
+  return errorCategoryNames[activeLocale]?.[value] || String(value || "").replaceAll("_", " ");
 }

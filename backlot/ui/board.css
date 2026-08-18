@@ -888,6 +888,21 @@ a.backlink:hover { color: var(--text-2); }
 .drawer .drawer-head .close { margin-left: auto; cursor: pointer; color: var(--text-3); font-family: var(--mono); font-size: calc(11px * var(--fs-scale)); }
 .drawer .drawer-head .close:hover { color: var(--text-2); }
 .drawer .drawer-body { padding: 14px 16px; }
+.stage-error {
+  margin: 0 0 14px; padding: 12px 14px; border: 1px solid rgba(229,84,75,.35);
+  border-radius: 9px; background: var(--red-dim); color: var(--text-2);
+}
+.stage-error-label {
+  color: var(--red); font-family: var(--mono); font-size: calc(9.5px * var(--fs-scale));
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+}
+.stage-error-message { margin: 5px 0 0; color: var(--text); line-height: 1.55; }
+.stage-error-category { margin: 7px 0 0; font-size: calc(10.5px * var(--fs-scale)); }
+.stage-error-actions { margin-top: 10px; font-size: calc(11px * var(--fs-scale)); line-height: 1.55; }
+.stage-error-actions ul { margin: 5px 0 0; padding-left: 20px; }
+.stage-technical-error { margin-top: 10px; }
+.stage-technical-error summary { cursor: pointer; color: var(--text-2); font-family: var(--mono); font-size: calc(10.5px * var(--fs-scale)); }
+.stage-technical-error pre { margin: 8px 0 0; max-height: 240px; }
 .drawer .raw-hint {
   margin: 0 0 10px; padding: 8px 10px; border-left: 2px solid var(--amber);
   background: var(--amber-dim); color: var(--text-2); font-size: calc(10.5px * var(--fs-scale)); line-height: 1.5;

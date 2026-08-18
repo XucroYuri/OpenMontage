@@ -39,7 +39,27 @@
         "budget_remaining_usd": { "type": "number" }
       }
     },
-    "error": { "type": "string" },
+    "error": {
+      "type": "string",
+      "description": "Legacy raw error field retained for backward compatibility. Prefer technical_error plus error_message for new writers."
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Actionable, user-facing failure summary in the active interaction locale."
+    },
+    "technical_error": {
+      "type": "string",
+      "description": "Original technical error retained for diagnostics; do not translate or discard provider details."
+    },
+    "error_category": {
+      "type": "string",
+      "enum": ["configuration", "dependency", "provider", "validation", "runtime", "budget", "approval", "unknown"]
+    },
+    "next_actions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "User-facing recovery actions in the active interaction locale."
+    },
     "metadata": { "type": "object" }
   },
   "additionalProperties": false
