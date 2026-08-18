@@ -38,18 +38,24 @@ def _server_alive(port: int) -> bool:
 def _spawn_server(port: int) -> None:
     """Start the server as a detached background process."""
     cmd = [sys.executable, "-m", "backlot", "serve", "--port", str(port)]
-    kwargs: dict = {
-        "stdout": subprocess.DEVNULL,
-        "stderr": subprocess.DEVNULL,
-        "stdin": subprocess.DEVNULL,
-    }
     if os.name == "nt":
-        kwargs["creationflags"] = (
-            subprocess.CREATE_NEW_PROCESS_GROUP | getattr(subprocess, "DETACHED_PROCESS", 0x00000008)
+        subprocess.Popen(
+            cmd,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            stdin=subprocess.DEVNULL,
+            creationflags=(
+                subprocess.CREATE_NEW_PROCESS_GROUP | getattr(subprocess, "DETACHED_PROCESS", 0x00000008)
+            ),
         )
     else:
-        kwargs["start_new_session"] = True
-    subprocess.Popen(cmd, **kwargs)
+        subprocess.Popen(
+            cmd,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+        )
 
 
 def cmd_open(project_id: str | None) -> int:
@@ -58,7 +64,7 @@ def cmd_open(project_id: str | None) -> int:
         try:
             _spawn_server(port)
         except Exception as exc:
-            print(f"backlot: could not start server ({exc}) — continuing without the board")
+            print(f"制作看板：无法启动服务（{exc}），将继续执行但不打开看板")
             return 1
         deadline = time.time() + 15
         while time.time() < deadline:
@@ -66,7 +72,7 @@ def cmd_open(project_id: str | None) -> int:
                 break
             time.sleep(0.4)
         else:
-            print("backlot: server did not come up in time — continuing without the board")
+            print("制作看板：服务未能及时启动，将继续执行但不打开看板")
             return 1
     url = f"http://127.0.0.1:{port}/"
     if project_id:
@@ -75,7 +81,7 @@ def cmd_open(project_id: str | None) -> int:
         webbrowser.open(url)
     except Exception:
         pass
-    print(f"backlot: {url}")
+    print(f"制作看板：{url}")
     return 0
 
 
@@ -87,14 +93,17 @@ def cmd_serve(port: int) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="backlot", description=__doc__)
+    parser = argparse.ArgumentParser(
+        prog="backlot",
+        description="打开 OpenMontage 制作看板，查看项目、流水线阶段、素材和成片。",
+    )
     sub = parser.add_subparsers(dest="command")
 
-    p_open = sub.add_parser("open", help="open the board in the browser (starts server if needed)")
-    p_open.add_argument("project_id", nargs="?", default=None)
+    p_open = sub.add_parser("open", help="在浏览器中打开看板（需要时自动启动服务）")
+    p_open.add_argument("project_id", nargs="?", default=None, help="可选的项目 ID；省略时打开项目库")
 
-    p_serve = sub.add_parser("serve", help="run the Backlot server in the foreground")
-    p_serve.add_argument("--port", type=int, default=_port())
+    p_serve = sub.add_parser("serve", help="在前台运行制作看板服务")
+    p_serve.add_argument("--port", type=int, default=_port(), help="监听端口")
 
     args = parser.parse_args(argv)
     if args.command == "open":
