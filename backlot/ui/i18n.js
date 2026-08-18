@@ -38,6 +38,7 @@ const messages = {
     "artifact.notRun": "此阶段尚未运行。",
     "artifact.notFound": "在磁盘上找不到此阶段的规范产物。",
     "artifact.gateSkipped": "已跳过审批门",
+    "artifact.rawDataHint": "以下为机器可读原始数据；为保证流水线兼容，字段名和枚举值保持英文。",
     "common.close": "关闭",
     "common.section": "段落",
     "common.moreSections": "还有 {count} 个段落",
@@ -50,6 +51,8 @@ const messages = {
     "common.selected": "已选择",
     "common.items": "{count} 项",
     "common.end": "结束",
+    "common.yes": "是",
+    "common.no": "否",
     "approval.completeScript": "完整脚本预览显示在下方。",
     "approval.reviewStoryboard": "请在下方故事板中检查时间安排和镜头覆盖。",
     "approval.inspectAssets": "批准合成前，请检查下方分镜条中的每个生成结果。",
@@ -73,6 +76,8 @@ const messages = {
     "approval.finalGate": "这是最后一个审批节点。",
     "approval.openArtifact": "打开完整产物",
     "scene.intent": "镜头意图",
+    "scene.number": "场景 {number}",
+    "scene.takeCountShort": "备选 {count}",
     "decision.revised": "已修订",
     "decision.alsoConsidered": "还考虑过：",
     "panel.decisions": "决策",
@@ -143,10 +148,12 @@ const messages = {
     "review.critical": "{count} critical", "review.suggestions": "{count} suggestions", "review.nitpicks": "{count} nitpicks",
     "review.focus": "review focus {value}", "artifact.notRun": "This stage hasn't run yet.",
     "artifact.notFound": "No canonical artifact found on disk for this stage.", "artifact.gateSkipped": "GATE SKIPPED",
+    "artifact.rawDataHint": "Machine-readable source data. Field names and enum values remain canonical for pipeline compatibility.",
     "common.close": "CLOSE", "common.section": "Section", "common.moreSections": "{count} more sections",
     "common.approved": "APPROVED", "common.pendingApproval": "PENDING APPROVAL", "common.drafting": "DRAFTING",
     "common.expandScript": "EXPAND SCRIPT", "common.scriptSummary": "script · {duration} · {count} sections",
     "common.item": "Item {index}", "common.selected": "SELECTED", "common.items": "{count} items", "common.end": "END",
+    "common.yes": "Yes", "common.no": "No",
     "approval.completeScript": "The complete script preview is shown directly below.",
     "approval.reviewStoryboard": "Review timing and shot coverage in the storyboard below.",
     "approval.inspectAssets": "Inspect every generated take in the filmstrip below before approving compose.",
@@ -161,7 +168,8 @@ const messages = {
     "approval.instructions": "Review the artifact here, then reply in chat to approve it or request changes.",
     "approval.selfReview": "SELF-REVIEW", "approval.unlocks": "Approval unlocks {stage}.",
     "approval.finalGate": "This is the final approval gate.", "approval.openArtifact": "OPEN FULL ARTIFACT",
-    "scene.intent": "Intent", "decision.revised": "revised", "decision.alsoConsidered": "also considered: ",
+    "scene.intent": "Intent", "scene.number": "SC {number}", "scene.takeCountShort": "T{count}",
+    "decision.revised": "revised", "decision.alsoConsidered": "also considered: ",
     "panel.decisions": "Decisions", "panel.activity": "Activity", "activity.running": "running",
     "scene.hero": "HERO", "scene.generating": "GENERATING", "scene.assetUnavailable": "asset unavailable",
     "scene.snapshot": "snapshot", "scene.bespoke": "BESPOKE", "scene.handAuthored": "hand-authored composition",
@@ -211,7 +219,9 @@ const artifactNames = {
 
 const statusNames = {
   "zh-CN": {
-    completed: "已完成", in_progress: "正在进行", awaiting_human: "等待确认", failed: "失败", pending: "未开始", unknown: "未知"
+    completed: "已完成", in_progress: "正在进行", awaiting_human: "等待确认", failed: "失败", pending: "未开始",
+    approved: "已批准", approved_with_changes: "修改后批准", pending_review: "等待审查", rejected: "已拒绝",
+    accepted: "已接受", published: "已发布", exported: "已导出", draft: "草稿", unknown: "未知"
   }
 };
 
@@ -222,7 +232,15 @@ const fieldNames = {
     total_duration_seconds: "总时长", duration_seconds: "时长", tone: "基调", style: "风格", platform: "平台",
     render_runtime: "合成引擎", pipeline: "流水线", locale: "语言区域", source_language: "源语言",
     target_languages: "目标语言", dub_mode_per_locale: "各语言配音模式", role: "角色", body_type: "体型",
-    silhouette_notes: "轮廓说明", required_emotions: "所需情绪", required_actions: "所需动作", path: "路径"
+    silhouette_notes: "轮廓说明", required_emotions: "所需情绪", required_actions: "所需动作", path: "路径",
+    version: "版本", project_id: "项目 ID", decision_id: "决策 ID", category: "决策类别", subject: "决策事项",
+    options_considered: "备选方案", selected: "已选方案", reason: "选择理由", rejected_because: "未选原因",
+    score: "评分", confidence: "置信度", user_visible: "已向用户展示", user_approved: "已获用户批准",
+    selected_concept: "选定概念", production_plan: "制作计划", cost_estimate: "费用估算", line_items: "费用明细",
+    estimated_usd: "预估费用", actual_usd: "实际费用", total_cost_usd: "总费用", output_path: "输出路径",
+    file_size_bytes: "文件大小", codec: "编码器", fps: "帧率", width: "宽度", height: "高度",
+    checks: "检查项", findings: "审查发现", issues: "问题", language: "语言", narration: "旁白",
+    dialogue: "对白", headline: "标题文案", hashtags: "话题标签", metadata: "元数据", delivery_note: "交付说明"
   }
 };
 
@@ -233,8 +251,55 @@ const reviewDecisionNames = {
 const decisionCategoryNames = {
   "zh-CN": {
     decision: "决策", pipeline_selection: "流水线选择", provider_selection: "提供商选择",
-    render_runtime_selection: "合成引擎选择", composition_mode: "合成创作模式", voice_selection: "声音选择",
-    visual_style: "视觉风格", music_selection: "音乐选择", tool_selection: "工具选择"
+    renderer_family_selection: "渲染器系列选择", render_runtime_selection: "合成引擎选择",
+    composition_mode: "合成创作模式", playbook_selection: "视觉方案选择", fallback_decision: "降级方案决策",
+    budget_tradeoff: "预算权衡", downgrade_approval: "降级批准", music_source: "音乐来源",
+    motion_commitment: "动态画面承诺", concept_selection: "概念选择", voice_selection: "声音选择",
+    capability_extension: "能力扩展", playbook_override: "视觉方案覆盖", visual_accuracy_check: "视觉准确性检查"
+  }
+};
+
+const decisionSubjectNames = {
+  "zh-CN": {
+    "image generation": "图像生成",
+    "video generation": "视频生成",
+    "compose": "视频合成",
+    "render runtime": "合成引擎",
+    "composition mode": "合成创作模式",
+    "narration tts provider": "旁白语音合成提供商",
+    "tts provider for narration": "旁白语音合成提供商",
+    "music source": "音乐来源",
+    "voice": "声音",
+    "pipeline": "流水线",
+    "visual playbook": "视觉风格方案",
+    "motion commitment": "动态画面承诺"
+  }
+};
+
+const canonicalValueNames = {
+  "zh-CN": {
+    approved: "已批准", approved_with_changes: "修改后批准", pending: "待处理", pending_review: "等待审查",
+    rejected: "已拒绝", accepted: "已接受", published: "已发布", exported: "已导出", draft: "草稿",
+    completed: "已完成", failed: "失败", in_progress: "正在进行", awaiting_human: "等待确认",
+    pass: "通过", revise: "需要修改", block: "阻塞", high: "高", medium: "中", low: "低",
+    production: "正式可用", beta: "测试版", guided: "引导模式", manual_all: "全部手动确认",
+    auto_noncreative: "非创意阶段自动执行", atelier: "定制编排", templated: "模板编排",
+    professional: "专业", educational: "教育", conversational: "对话式", cinematic: "电影感",
+    dramatic: "戏剧化", energetic: "有活力", humorous: "幽默", inspirational: "鼓舞人心",
+    remotion: "Remotion", hyperframes: "HyperFrames", ffmpeg: "FFmpeg"
+  }
+};
+
+const shotValueNames = {
+  "zh-CN": {
+    wide: "广角", medium: "中景", close_up: "近景", extreme_close_up: "特写", establishing: "定场远景",
+    medium_close: "中近景", medium_wide: "中远景", over_shoulder: "越肩镜头", insert: "插入镜头",
+    product_shot: "产品镜头", b_roll: "补充镜头", static: "固定镜头", dolly_in: "推近",
+    dolly_out: "拉远", pan_left: "向左摇镜", pan_right: "向右摇镜", crane_up: "升降上移",
+    crane_down: "升降下移", handheld: "手持镜头", orbital: "环绕镜头", steadicam: "稳定器镜头",
+    rack_focus: "焦点转移", golden_hour: "黄金时刻", low_key: "低调光", rim_lit: "轮廓光",
+    natural: "自然光", high_key: "高调光", blue_hour: "蓝调时刻", overcast_soft: "阴天柔光",
+    neon: "霓虹光", silhouette: "剪影"
   }
 };
 
@@ -298,6 +363,20 @@ export function reviewDecisionLabel(value) {
 
 export function decisionCategoryLabel(value) {
   return decisionCategoryNames[activeLocale]?.[value] || String(value || "decision").replaceAll("_", " ");
+}
+
+export function decisionSubjectLabel(value) {
+  const key = String(value || "").trim().toLowerCase();
+  return decisionSubjectNames[activeLocale]?.[key] || String(value || "");
+}
+
+export function canonicalValueLabel(value) {
+  if (typeof value === "boolean") return t(value ? "common.yes" : "common.no");
+  return canonicalValueNames[activeLocale]?.[String(value)] || String(value ?? "");
+}
+
+export function shotValueLabel(value) {
+  return shotValueNames[activeLocale]?.[String(value)] || String(value || "").replaceAll("_", " ");
 }
 
 export function assetTypeLabel(value) {

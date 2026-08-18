@@ -313,3 +313,36 @@ def test_default_chinese_ui_can_switch_to_english(staged_backlot_server):
             assert page.locator("h1").text_content() == "Library"
         finally:
             browser.close()
+
+
+def test_decision_labels_and_raw_contract_follow_the_active_locale(staged_backlot_server):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        try:
+            page.goto(
+                staged_backlot_server + "/p/signal-in-the-static?static=1&lang=zh-CN",
+                wait_until="networkidle",
+            )
+            decisions = page.locator(".decision")
+            decision_text = "\n".join(decisions.all_inner_texts())
+            assert "提供商选择" in decision_text
+            assert "图像生成" in decision_text
+            assert "广角" in page.locator(".shotchips").first.inner_text()
+
+            page.locator(".stage").filter(has_text="提案").click()
+            hint = page.locator(".drawer .raw-hint")
+            assert "字段名和枚举值保持英文" in hint.inner_text()
+            raw_data = "\n".join(page.locator(".drawer pre").all_inner_texts())
+            assert '"selected": "flux_image"' in raw_data
+
+            page.get_by_role("button", name="切换到 English").click()
+            decision_text = "\n".join(decisions.all_inner_texts()).lower()
+            assert "provider selection" in decision_text
+            assert "image generation" in decision_text
+            assert "wide" in page.locator(".shotchips").first.inner_text()
+            assert "Field names and enum values remain canonical" in hint.inner_text()
+            raw_data = "\n".join(page.locator(".drawer pre").all_inner_texts())
+            assert '"selected": "flux_image"' in raw_data
+        finally:
+            browser.close()

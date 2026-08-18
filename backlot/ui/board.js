@@ -5,8 +5,8 @@ import {
   getJSON, mediaURL, subscribe, thumbURL, waveBars,
 } from "/ui/lib.js";
 import {
-  artifactLabel, assetTypeLabel, decisionCategoryLabel, displayLabel, getLocale, pipelineLabel,
-  reviewDecisionLabel, setLocale, stageLabel, statusLabel, t,
+  artifactLabel, assetTypeLabel, canonicalValueLabel, decisionCategoryLabel, decisionSubjectLabel,
+  displayLabel, getLocale, pipelineLabel, reviewDecisionLabel, setLocale, shotValueLabel, stageLabel, statusLabel, t,
 } from "/ui/i18n.js";
 
 const rawProjectPath = location.pathname.split("/p/")[1] || "";
@@ -244,6 +244,7 @@ function renderDrawer(s) {
   for (const name of names) {
     const artifact = s.artifacts[name];
     if (!artifact) continue;
+    if (!shown) body.append(el("div", { class: "raw-hint" }, t("artifact.rawDataHint")));
     shown = true;
     body.append(
       el("div", { class: "d-cat", style: "font-family:var(--mono);font-size:calc(9.5px * var(--fs-scale));color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin:6px 0 4px" }, artifactLabel(name)),
@@ -366,7 +367,7 @@ function genericArtifactSummary(artifact) {
   for (const [key, value] of Object.entries(artifact || {})) {
     if (["version", "decision_log_ref"].includes(key)) continue;
     if (["string", "number", "boolean"].includes(typeof value)) {
-      facts.push(reviewFact(humanize(key), shortText(value, 90)));
+      facts.push(reviewFact(humanize(key), shortText(canonicalValueLabel(value), 90)));
     } else if (Array.isArray(value)) {
       facts.push(reviewFact(humanize(key), t("common.items", { count: value.length })));
       if (!items.length && value.length) items.push(titledItems(value));
@@ -383,8 +384,8 @@ function artifactReviewContent(name, artifact) {
       reviewFacts([
         reviewFact(t("field.platform"), artifact.target_platform),
         reviewFact(t("field.duration"), artifact.target_duration_seconds != null ? fmtDuration(artifact.target_duration_seconds) : null),
-        reviewFact(t("field.tone"), artifact.tone),
-        reviewFact(t("field.style"), artifact.style),
+        reviewFact(t("field.tone"), canonicalValueLabel(artifact.tone)),
+        reviewFact(t("field.style"), canonicalValueLabel(artifact.style)),
       ]),
       titledItems(artifact.key_points),
     ].filter(Boolean);
@@ -395,7 +396,7 @@ function artifactReviewContent(name, artifact) {
     const cost = artifact.cost_estimate || {};
     return [
       reviewFacts([
-        reviewFact(t("field.runtime"), plan.render_runtime),
+        reviewFact(t("field.runtime"), canonicalValueLabel(plan.render_runtime)),
         reviewFact(t("field.pipeline"), plan.pipeline ? pipelineLabel(plan.pipeline) : null),
         reviewFact(t("field.estimatedCost"), cost.total_estimated_usd != null ? fmtMoney(cost.total_estimated_usd) : null),
         reviewFact(t("field.concepts"), Array.isArray(artifact.concept_options) ? artifact.concept_options.length : null),
@@ -458,7 +459,7 @@ function artifactReviewContent(name, artifact) {
     return [
       reviewFacts([
         reviewFact(t("field.cuts"), Array.isArray(artifact.cuts) ? artifact.cuts.length : null),
-        reviewFact(t("field.runtime"), artifact.render_runtime || (artifact.metadata || {}).render_runtime),
+        reviewFact(t("field.runtime"), canonicalValueLabel(artifact.render_runtime || (artifact.metadata || {}).render_runtime)),
       ]),
       titledItems(artifact.cuts),
     ].filter(Boolean);
@@ -477,7 +478,7 @@ function artifactReviewContent(name, artifact) {
       reviewFacts([reviewFact(t("field.destinations"), Array.isArray(artifact.entries) ? artifact.entries.length : null)]),
       titledItems((artifact.entries || []).map((entry) => ({
         title: entry.platform || entry.destination || t("approval.publishDestination"),
-        description: [entry.status, entry.url].filter(Boolean).join(" · "),
+        description: [canonicalValueLabel(entry.status), entry.url].filter(Boolean).join(" · "),
       }))),
     ].filter(Boolean);
   }
@@ -624,7 +625,7 @@ function renderDecisions(s) {
     body.append(el("div", { class: "decision" },
       el("div", { class: "d-cat" }, `${decisionCategoryLabel(d.category)}${d.confidence ? ` · ${d.confidence}` : ""}`,
         revised ? el("span", { class: "d-revised" }, ` · ${t("decision.revised")}`) : null),
-      el("div", { class: "d-pick" }, `${d.subject || ""} `, el("span", { class: "arrow" }, "→"), ` ${selLabel}`),
+      el("div", { class: "d-pick" }, `${decisionSubjectLabel(d.subject)} `, el("span", { class: "arrow" }, "→"), ` ${selLabel}`),
       d.reason ? el("div", { class: "d-why" }, d.reason) : null,
       alts.length ? el("div", { class: "d-alt" }, t("decision.alsoConsidered"),
         alts.slice(0, 3).map((o, i) => [i ? " · " : "", el("s", {}, o.label || o.option_id)]).flat()) : null,
@@ -690,9 +691,8 @@ function renderActivity(s) {
 // ---------------------------------------------------------------------------
 
 function sceneLabel(id) {
-  // "sc4" → "SC 04", "scene-11" → "SC 11", anything else → uppercased id
   const m = String(id).match(/(\d+)\s*$/);
-  if (m) return `SC ${m[1].padStart(2, "0")}`;
+  if (m) return t("scene.number", { number: m[1].padStart(2, "0") });
   return String(id).toUpperCase().slice(0, 10);
 }
 
@@ -703,7 +703,7 @@ function sceneCard(s, card) {
 
   const slate = el("div", { class: "sc-slate" },
     el("span", { class: "num" }, sceneLabel(card.id)),
-    card.takes.length > 1 ? el("span", { class: "take" }, `T${card.takes.length}`) : null,
+    card.takes.length > 1 ? el("span", { class: "take" }, t("scene.takeCountShort", { count: card.takes.length })) : null,
     card.hero_moment ? el("span", { class: "hero" }, `★ ${t("scene.hero")}`) : null,
     el("span", { class: "dur" }, fmtDuration(dur)),
   );
@@ -741,7 +741,7 @@ function sceneCard(s, card) {
         t.innerHTML = "";
         t.append(el("div", { class: "spec-in" },
           el("div", { class: "spec-desc" }, card.description || t("scene.assetUnavailable")),
-          el("div", { class: "spec-shot" }, [card.framing, card.movement].filter(Boolean).join(" · ").slice(0, 70))));
+          el("div", { class: "spec-shot" }, [card.framing, card.movement].filter(Boolean).map(shotValueLabel).join(" · ").slice(0, 70))));
       };
       thumb = el("div", { class: "thumb approved" }, img,
         v.snapshot ? el("span", { class: "badge" }, t("scene.snapshot")) : (badge ? el("span", { class: "badge" }, badge) : null));
@@ -773,7 +773,7 @@ function sceneCard(s, card) {
     thumb = el("div", { class: "thumb spec" },
       el("div", { class: "spec-in" },
         el("div", { class: "spec-desc" }, card.description || ""),
-        el("div", { class: "spec-shot" }, [card.framing, card.movement].filter(Boolean).join(" · ").slice(0, 70))));
+        el("div", { class: "spec-shot" }, [card.framing, card.movement].filter(Boolean).map(shotValueLabel).join(" · ").slice(0, 70))));
   }
   wrap.append(thumb);
 
@@ -783,7 +783,7 @@ function sceneCard(s, card) {
     wrap.append(el("div", { class: "shotchips", style: "display:flex;flex-wrap:wrap;gap:4px;padding:7px 2px 0" },
       [sl.shot_size, sl.camera_movement, sl.lens_mm ? `${sl.lens_mm}mm` : null, sl.lighting_key]
         .filter(Boolean)
-        .map((t) => el("span", { style: "font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.04em;color:#62626c;border:1px solid #212129;border-radius:3px;padding:1px 5px" }, String(t).replaceAll("_", " ")))));
+        .map((value) => el("span", { style: "font-family:var(--mono);font-size:calc(8.5px * var(--fs-scale));letter-spacing:.04em;color:#62626c;border:1px solid #212129;border-radius:3px;padding:1px 5px" }, shotValueLabel(value)))));
   }
 
   // takes drawer
