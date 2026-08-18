@@ -2,6 +2,7 @@
 
 import json
 import time
+from collections.abc import Mapping
 from pathlib import Path
 
 import pytest
@@ -26,7 +27,7 @@ def _make_project(root: Path, pid: str) -> Path:
     return p
 
 
-def _write(p: Path, data: dict) -> None:
+def _write(p: Path, data: Mapping[str, object]) -> None:
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(data), encoding="utf-8")
 
@@ -154,6 +155,30 @@ class TestBoardState:
         s = load_board_state(p)
         idea = next(x for x in s["stages"] if x["name"] == "idea")
         assert idea.get("undeclared") is True
+
+    def test_failed_stage_preserves_localized_and_technical_errors(self, projects_root):
+        p = _make_project(projects_root, "failed")
+        _write(p / "checkpoint_research.json", {
+            "version": "1.0",
+            "project_id": "failed",
+            "pipeline_type": "framework-smoke",
+            "stage": "research",
+            "status": "failed",
+            "timestamp": "2026-01-01T01:00:00Z",
+            "artifacts": {},
+            "error": "legacy fallback",
+            "error_message": "提供商暂时不可用。",
+            "technical_error": "ProviderError: HTTP 503",
+            "error_category": "provider",
+            "next_actions": ["稍后重试。"],
+        })
+
+        state = load_board_state(p)
+        stage = next(x for x in state["stages"] if x["name"] == "research")
+        assert stage["error_message"] == "提供商暂时不可用。"
+        assert stage["technical_error"] == "ProviderError: HTTP 503"
+        assert stage["error_category"] == "provider"
+        assert stage["next_actions"] == ["稍后重试。"]
 
 
 class TestLibrary:

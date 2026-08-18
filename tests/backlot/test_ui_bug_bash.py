@@ -132,6 +132,42 @@ def _build_approval_projects() -> None:
         pipeline_type="character-animation",
     )
 
+    init_project(
+        "failed-structured",
+        title="Structured failure fixture",
+        pipeline_type="framework-smoke",
+        pipeline_dir=root,
+    )
+    write_checkpoint(
+        root,
+        "failed-structured",
+        "research",
+        "failed",
+        {},
+        pipeline_type="framework-smoke",
+        error="ProviderError: HTTP 429 rate_limit_exceeded request_id=req_demo",
+        error_message="提供商暂时达到请求上限。",
+        technical_error="ProviderError: HTTP 429 rate_limit_exceeded request_id=req_demo",
+        error_category="provider",
+        next_actions=["稍后重试。", "选择其他已配置的提供商。"],
+    )
+
+    init_project(
+        "failed-legacy",
+        title="Legacy failure fixture",
+        pipeline_type="framework-smoke",
+        pipeline_dir=root,
+    )
+    write_checkpoint(
+        root,
+        "failed-legacy",
+        "research",
+        "failed",
+        {},
+        pipeline_type="framework-smoke",
+        error="LegacyError: provider request failed",
+    )
+
 
 @pytest.fixture(scope="module")
 def staged_backlot_server():
@@ -344,5 +380,64 @@ def test_decision_labels_and_raw_contract_follow_the_active_locale(staged_backlo
             assert "Field names and enum values remain canonical" in hint.inner_text()
             raw_data = "\n".join(page.locator(".drawer pre").all_inner_texts())
             assert '"selected": "flux_image"' in raw_data
+        finally:
+            browser.close()
+
+
+def test_structured_failure_is_localized_without_hiding_technical_error(
+    staged_backlot_server,
+):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        try:
+            page.goto(
+                staged_backlot_server + "/p/failed-structured?static=1&lang=zh-CN",
+                wait_until="networkidle",
+            )
+            stage = page.locator(".stage.failed")
+            assert "提供商暂时达到请求上限。" in stage.inner_text()
+            assert "rate_limit_exceeded" not in stage.inner_text()
+
+            stage.click()
+            error_panel = page.locator(".stage-error")
+            assert error_panel.is_visible()
+            assert "失败原因" in error_panel.inner_text()
+            assert "提供商错误" in error_panel.inner_text()
+            assert "选择其他已配置的提供商。" in error_panel.inner_text()
+            technical = error_panel.locator(".stage-technical-error pre")
+            assert not technical.is_visible()
+            error_panel.get_by_text("原始技术错误", exact=True).click()
+            assert technical.is_visible()
+            assert "rate_limit_exceeded request_id=req_demo" in technical.inner_text()
+
+            page.get_by_role("button", name="切换到 English").click()
+            assert "Failure summary" in error_panel.inner_text()
+            assert "Original technical error" in error_panel.inner_text()
+            assert "rate_limit_exceeded request_id=req_demo" in technical.inner_text()
+        finally:
+            browser.close()
+
+
+def test_legacy_failure_gets_safe_summary_and_expandable_raw_error(
+    staged_backlot_server,
+):
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        try:
+            page.goto(
+                staged_backlot_server + "/p/failed-legacy?static=1&lang=zh-CN",
+                wait_until="networkidle",
+            )
+            stage = page.locator(".stage.failed")
+            assert "此阶段失败，请打开详情查看原因" in stage.inner_text()
+            assert "LegacyError" not in stage.inner_text()
+
+            stage.click()
+            error_panel = page.locator(".stage-error")
+            assert "LegacyError" not in error_panel.inner_text()
+            error_panel.get_by_text("原始技术错误", exact=True).click()
+            assert "LegacyError: provider request failed" in error_panel.inner_text()
         finally:
             browser.close()

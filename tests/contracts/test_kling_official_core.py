@@ -57,10 +57,9 @@ class FakeSession:
         return self.responses.pop(0)
 
 
-class HelperFakeClient:
+class HelperFakeClient(KlingClient):
     def __init__(self, api_key="fake-key", base_url="https://api.example.test"):
-        self.api_key = api_key
-        self.base_url = base_url
+        super().__init__(api_key=api_key, base_url=base_url)
         self.calls = []
 
     def get(self, path, params=None):
@@ -358,19 +357,19 @@ def test_provider_docs_distinguish_fal_and_official_kling():
     assert "fal.ai" in providers
     assert "provider=\"kling_official\"" in providers
     assert "provider=\"kling\"" in providers
-    assert "Elements remain an internal Kling Official helper" in providers
-    assert "Account Usage is available as a low-frequency diagnostic helper" in providers
+    assert "Elements 仍然是 Kling Official 的内部 helper" in providers
+    assert "Account Usage 以低频 diagnostic helper 的形式提供" in providers
     assert "callback_url" in providers
-    assert "audio effects and video effects are documented but intentionally not registered" in providers
+    assert "audio effects 和 video effects 已有文档说明" in providers
 
 
 def test_architecture_env_mapping_includes_kling_official():
     architecture = read("docs/ARCHITECTURE.md")
     assert "`KLING_API_KEY` | kling_official_video, kling_official_image, kling_tts, kling_avatar, kling_lip_sync" in architecture
     assert "`KLING_API_BASE_URL` | kling_official_video, kling_official_image, kling_tts, kling_avatar, kling_lip_sync" in architecture
-    assert "Elements and Account" in architecture
-    assert "not separate pipeline stages" in architecture
-    assert "Kling Official also adds provider tools only where OpenMontage already has a" in architecture
+    assert "Elements 与 Account Usage" in architecture
+    assert "它们不是独立的流水线阶段" in architecture
+    assert "Kling Official 也只会在 OpenMontage 已有匹配能力槽位时添加 Provider 工具" in architecture
 
 
 def test_ai_video_skill_metadata_and_new_skill_link():
@@ -381,8 +380,14 @@ def test_ai_video_skill_metadata_and_new_skill_link():
 
     assert "KLING_API_KEY" in ai_video
     assert "kling_official_video" in ai_video
-    assert "kling_tts" in index
-    assert "avatar/lip-sync face selection" in index
+    for tool_name in (
+        "kling_official_video",
+        "kling_official_image",
+        "kling_tts",
+        "kling_avatar",
+        "kling_lip_sync",
+    ):
+        assert tool_name in index
     assert ".agents/skills/kling-official/" in creative
     assert official_skill.is_file()
     official_skill_text = official_skill.read_text(encoding="utf-8")
