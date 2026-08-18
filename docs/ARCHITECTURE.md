@@ -1,5 +1,5 @@
 <!-- generated-by: gsd-doc-writer -->
-> **简体中文（主版本）** | [English (secondary version)](ARCHITECTURE.en.md)
+> **简体中文（主文档）** | [英文副本](ARCHITECTURE.en.md)
 
 # OpenMontage 架构
 

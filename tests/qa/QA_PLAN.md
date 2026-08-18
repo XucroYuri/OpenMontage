@@ -1,5 +1,5 @@
 <!-- generated-by: gsd-doc-writer -->
-> 简体中文（主文档） | [English copy](QA_PLAN.en.md)
+> 简体中文（主文档） | [英文副本](QA_PLAN.en.md)
 
 # QA 质量验证计划
 

@@ -1,5 +1,5 @@
 <!-- generated-by: gsd-doc-writer -->
-> [简体中文主文档](README.md) | [English copy](README.en.md)
+> [简体中文主文档](README.md) | [英文副本](README.en.md)
 
 # 制作看板（兼容入口）
 

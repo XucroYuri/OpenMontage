@@ -9,7 +9,7 @@
 
 <h1 align="center">OpenMontage</h1>
 
-<p align="center">简体中文（主文档） · <a href="README.en.md">English copy</a></p>
+<p align="center">简体中文（主文档） · <a href="README.en.md">英文副本</a></p>
 
 <p align="center"><strong>首个开源的，代理化（agentic）的视频制作系统</strong></p>
 

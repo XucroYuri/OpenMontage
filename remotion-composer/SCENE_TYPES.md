@@ -1,5 +1,5 @@
 <!-- generated-by: gsd-doc-writer -->
-> 简体中文（主文档） | [English copy](SCENE_TYPES.en.md)
+> 简体中文（主文档） | [英文副本](SCENE_TYPES.en.md)
 
 # Remotion Composer 场景与叠加层速查
 

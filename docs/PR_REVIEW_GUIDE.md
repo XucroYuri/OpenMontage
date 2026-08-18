@@ -1,6 +1,6 @@
 <!-- generated-by: gsd-doc-writer -->
 
-> 语言版本：**简体中文（主版本）** | [English（副版本）](PR_REVIEW_GUIDE.en.md)
+> 语言版本：**简体中文（主文档）** | [英文副本](PR_REVIEW_GUIDE.en.md)
 
 # Pull Request 审查指南
 

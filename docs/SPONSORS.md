@@ -1,4 +1,4 @@
-> **简体中文（主版本）** | [English (secondary version)](SPONSORS.en.md)
+> **简体中文（主文档）** | [英文副本](SPONSORS.en.md)
 
 # 赞助商
 

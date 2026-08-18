@@ -1,4 +1,4 @@
-> **简体中文（主版本）** | [English (secondary version)](CONTRIBUTING.en.md)
+> **简体中文（主文档）** | [英文副本](CONTRIBUTING.en.md)
 
 # 为 OpenMontage 贡献
 

@@ -1,7 +1,7 @@
 <!-- generated-by: gsd-doc-writer -->
 # Ink Theater 示例
 
-**简体中文（主文档）** · [English (secondary)](README.en.md)
+**简体中文（主文档）** · [英文副本](README.en.md)
 
 ## `mocap-figure/`——标准可运行示例
 

@@ -1,4 +1,4 @@
-> **简体中文（主版本）** | [English (secondary version)](apple-silicon-mps.en.md)
+> **简体中文（主文档）** | [英文副本](apple-silicon-mps.en.md)
 
 # Apple Silicon (MPS) 支持
 

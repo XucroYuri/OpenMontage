@@ -1,7 +1,7 @@
 <!-- generated-by: gsd-doc-writer -->
 # Ink Theater
 
-**简体中文（主文档）** · [English (secondary)](README.en.md)
+**简体中文（主文档）** · [英文副本](README.en.md)
 
 一个确定性、可安全跳转的手绘**“动态艺术”**引擎——在极简的白底黑墨世界里，一个面无表情的吉祥物通过操作荒诞的低技术装置，亲自*演绎*抽象概念。它为 OpenMontage 的 **atelier** 路径打造，并通过 **HyperFrames** 渲染（HTML/SVG/CSS + 一条暂停的 GSAP 时间线 → MP4）。
 

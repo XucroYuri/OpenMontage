@@ -1,5 +1,5 @@
 <!-- generated-by: gsd-doc-writer -->
-> 简体中文（主文档） | [English copy](README.en.md)
+> 简体中文（主文档） | [英文副本](README.en.md)
 
 # Backlot — 实时制作看板
 
