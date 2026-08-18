@@ -1,30 +1,31 @@
+<!-- 简体中文主模板；英文副本见 PULL_REQUEST_TEMPLATE.en.md。 -->
 <!--
-Thanks for contributing to OpenMontage! Please fill in the sections below.
-Keep PRs focused — one logical change per PR is easier to review and merge.
+感谢为 OpenMontage 贡献代码！请填写以下部分。
+请让每个 PR 聚焦于一项逻辑变更，以便审查和合并。
 -->
 
-## Summary
+## 摘要
 
-<!-- What does this PR do, and why? -->
+<!-- 这个 PR 做了什么，为什么需要这项变更？ -->
 
-## Related issue
+## 关联 Issue
 
-<!-- Link the issue this closes, e.g. "Closes #123". Use "Refs #123" if it only relates. -->
+<!-- 链接此 PR 将关闭的 Issue，例如 "Closes #123"；如果只是相关，请使用 "Refs #123"。 -->
 Closes #
 
-## Changes
+## 变更内容
 
-<!-- Bullet the notable changes. -->
+<!-- 用列表概括值得注意的变更。 -->
 -
 
-## Testing
+## 验证方式
 
-<!-- How did you verify this? Commands run, manual steps, platforms checked. -->
+<!-- 你如何验证这项变更？请列出运行的命令、人工步骤和检查的平台。 -->
 -
 
-## Checklist
+## 检查清单
 
-- [ ] The change is focused on a single logical concern.
-- [ ] I ran the relevant tests locally (`make test-contracts` / `make test`) where applicable.
-- [ ] I updated docs/README if behavior or usage changed.
-- [ ] No unrelated files (build artifacts, local config) are included in the diff.
+- [ ] 这项变更只聚焦于一个逻辑问题。
+- [ ] 适用时，我已在本地运行相关测试（`make test-contracts` / `make test`）。
+- [ ] 如果行为或用法发生变化，我已更新 `docs/README.md` 及相关文档。
+- [ ] diff 中不包含无关文件，例如构建产物或本地配置。

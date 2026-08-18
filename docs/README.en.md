@@ -16,6 +16,7 @@ The repository uses Chinese-first documentation for human-facing project guides.
 
 - [Architecture](ARCHITECTURE.en.md)
 - [Pull request review guide](PR_REVIEW_GUIDE.en.md)
+- [Pull request template](../.github/PULL_REQUEST_TEMPLATE.en.md)
 - [ComfyUI adapter plan](comfyui-adapter-plan.en.md)
 - [Sponsor maintenance](SPONSORS.en.md)
 - [Backlot production board](../backlot/README.en.md)

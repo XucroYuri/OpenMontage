@@ -16,6 +16,7 @@
 
 - [系统架构](ARCHITECTURE.md)
 - [Pull Request 审查指南](PR_REVIEW_GUIDE.md)
+- [Pull Request 提交模板](../.github/PULL_REQUEST_TEMPLATE.md)
 - [ComfyUI 适配器计划](comfyui-adapter-plan.md)
 - [赞助商维护说明](SPONSORS.md)
 - [Backlot 制作看板](../backlot/README.md)
