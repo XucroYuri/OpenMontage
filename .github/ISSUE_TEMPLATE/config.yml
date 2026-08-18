@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Questions & troubleshooting
+  - name: 使用问题与故障排查
     url: https://github.com/calesthio/OpenMontage/discussions/categories/q-a
-    about: Ask setup, pipeline, or troubleshooting questions in Discussions.
-  - name: Ideas & feature brainstorming
+    about: 在 Discussions 中咨询安装、pipeline 使用或故障排查问题。
+  - name: 创意与功能讨论
     url: https://github.com/calesthio/OpenMontage/discussions/categories/ideas
-    about: Propose and discuss new pipelines, tools, or integrations.
-  - name: Show and Tell
+    about: 提议并讨论新的 pipeline、工具或集成。
+  - name: 作品展示
     url: https://github.com/calesthio/OpenMontage/discussions/categories/show-and-tell
-    about: Share videos, prompts, or workflows you've built.
+    about: 分享你制作的视频、提示词或工作流。

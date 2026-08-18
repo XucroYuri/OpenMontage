@@ -1,12 +1,12 @@
 ---
-description: Hand-drawn ink doodle animation — a character that draws itself then walks/dances/waves, or a contraption explainer (vector → HyperFrames MP4).
-argument-hint: [what to animate]
+description: 手绘墨线涂鸦动画：角色自我绘制后行走、跳舞或挥手，也可制作机械装置讲解（矢量 → HyperFrames MP4）。
+argument-hint: "[要制作的动画]"
 ---
 
-Read `skills/creative/ink-theater.md` and `ink-theater/README.md`, then build the hand-drawn ink animation described below.
+读取 `skills/creative/ink-theater.md` 和 `ink-theater/README.md`，再制作下述手绘墨线动画。
 
-- **Ink Theater** engine (`ink-theater/ink-theater.js`): variable-width ink strokes, seek-safe boil, closed-form spring eases, FABRIK IK, contraption grammar.
-- For a **character that walks / dances / waves / jumps**, use the **Ink Puppet** mocap system: `InkPuppet.create` → `p.drawIn` (self-drawing reveal) → `InkPuppet.choreograph([{clip:'wave'},{clip:'twist'},…])` (names from `ink-theater/mocap/catalog.json`, 12 CMU-sourced moves). **Never hand-tune motion**; add moves via `node ink-theater/mocap/add-motion.mjs`.
-- Captions = **HTML overlay `<div>`s** (HyperFrames doesn't apply webfonts to SVG `<text>`). Validate (`npx hyperframes lint` + `snapshot`) before rendering.
+- **Ink Theater** 引擎（`ink-theater/ink-theater.js`）提供可变宽墨线、可安全 seek 的抖线、闭式弹簧缓动、FABRIK IK 和机械装置语法。
+- 角色需要**行走 / 跳舞 / 挥手 / 跳跃**时，使用 **Ink Puppet** 动捕系统：`InkPuppet.create` → `p.drawIn`（自绘显现）→ `InkPuppet.choreograph([{clip:'wave'},{clip:'twist'},…])`。名称来自 `ink-theater/mocap/catalog.json` 中的 12 个 CMU 动作。**不得手调动作**；通过 `node ink-theater/mocap/add-motion.mjs` 添加动作。
+- 字幕使用 **HTML overlay `<div>`**，因为 HyperFrames 不会把 Web 字体应用到 SVG `<text>`。渲染前运行 `npx hyperframes lint` 和 `snapshot`。
 
-Request: $ARGUMENTS
+请求：$ARGUMENTS

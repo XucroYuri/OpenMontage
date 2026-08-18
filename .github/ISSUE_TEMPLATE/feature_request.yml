@@ -1,38 +1,38 @@
-name: Feature request
-description: Suggest a new tool, pipeline, integration, or improvement
+name: 功能建议
+description: 建议新的工具、pipeline、集成或改进
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Have an idea? If it's open-ended or you want to discuss direction first, consider posting in
-        [Discussions → Ideas](https://github.com/calesthio/OpenMontage/discussions/categories/ideas).
-        Use this form for a concrete, actionable request.
+        如果想法还比较开放，或希望先讨论方向，请前往
+        [Discussions → Ideas](https://github.com/calesthio/OpenMontage/discussions/categories/ideas)。
+        此表单用于具体、可执行的功能请求。
   - type: textarea
     id: problem
     attributes:
-      label: Problem / motivation
-      description: What problem does this solve, or what is missing today?
+      label: 问题 / 动机
+      description: 这个建议要解决什么问题？目前缺少什么？
     validations:
       required: true
   - type: textarea
     id: solution
     attributes:
-      label: Proposed solution
-      description: Describe the tool, pipeline, or change you'd like.
+      label: 建议方案
+      description: 请描述你希望增加的工具、pipeline 或具体改动。
     validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: Any other approaches you've thought about.
+      label: 考虑过的替代方案
+      description: 请说明你考虑过的其他实现方式。
     validations:
       required: false
   - type: textarea
     id: context
     attributes:
-      label: Additional context
-      description: Links, mockups, references, or examples.
+      label: 补充信息
+      description: 可以提供链接、原型、参考资料或示例。
     validations:
       required: false

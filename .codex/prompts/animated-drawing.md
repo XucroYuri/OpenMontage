@@ -1,12 +1,12 @@
 ---
-description: Animate a SUPPLIED drawing/photo with real mocap (Meta AnimatedDrawings) → raster GIF/MP4. To create a vector doodle from scratch, use /ink-art.
-argument-hint: [path to drawing] [motion: dance|walk|jump|wave]
+description: 使用 Meta AnimatedDrawings 的真实动作捕捉，让用户提供的图画/照片动起来并输出光栅 GIF/MP4。若要从零创建矢量涂鸦，请使用 /ink-art。
+argument-hint: "[图画路径] [动作: dance|walk|jump|wave]"
 ---
 
-Read `skills/creative/animated-drawing.md`, then set up and run Meta's open-source AnimatedDrawings to animate the supplied drawing with the requested motion.
+读取 `skills/creative/animated-drawing.md`，然后配置并运行 Meta 开源的 AnimatedDrawings，让用户提供的图画执行指定动作。
 
-- Only for animating an *existing* humanoid drawing/photo. To create a vector doodle from scratch → use `/ink-art`.
-- Output is **raster** (original drawing warped) — no vector, no draw-on reveal.
-- Prefer the turnkey bundled-character path; auto-rig needs Docker + ~670 MB models.
+- 仅用于已有的人形图画/照片；若要从零创建矢量涂鸦，请使用 `/ink-art`。
+- 输出为**光栅图像**（原图发生形变），不是矢量，也不包含描线显现。
+- 优先使用内置角色的即用路径；自动绑定需要 Docker 和约 670 MB 模型。
 
-Drawing + motion: $ARGUMENTS
+图画与动作：$ARGUMENTS

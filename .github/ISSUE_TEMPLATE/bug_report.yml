@@ -1,69 +1,69 @@
-name: Bug report
-description: Report a reproducible problem with OpenMontage
+name: 缺陷报告
+description: 报告可以稳定复现的 OpenMontage 问题
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to file a bug. Please fill in the fields below so it can be reproduced and triaged quickly.
-        For questions or help, use [GitHub Discussions](https://github.com/calesthio/OpenMontage/discussions) instead.
+        感谢你提交缺陷。请填写以下信息，帮助维护者快速复现和定位问题。
+        如果只是咨询或寻求使用帮助，请前往 [GitHub Discussions](https://github.com/calesthio/OpenMontage/discussions)。
   - type: textarea
     id: summary
     attributes:
-      label: Summary
-      description: A clear, one-paragraph description of the bug.
+      label: 问题概述
+      description: 请用一段话清楚描述问题。
     validations:
       required: true
   - type: input
     id: os
     attributes:
-      label: Operating system
-      placeholder: e.g. Windows 11, macOS 14.5, Ubuntu 24.04
+      label: 操作系统
+      placeholder: 例如 Windows 11、macOS 14.5、Ubuntu 24.04
     validations:
       required: true
   - type: input
     id: pipeline
     attributes:
-      label: Pipeline
-      description: Which pipeline were you running, if any?
-      placeholder: e.g. cinematic, explainer, character-animation
+      label: Pipeline（流水线）
+      description: 出现问题时正在运行哪个 pipeline？如果不涉及可留空。
+      placeholder: 例如 cinematic、explainer、character-animation
     validations:
       required: false
   - type: input
     id: runtime
     attributes:
-      label: Runtime / renderer
-      placeholder: e.g. remotion, hyperframes
+      label: 合成引擎 / renderer
+      placeholder: 例如 remotion、hyperframes
     validations:
       required: false
   - type: textarea
     id: repro
     attributes:
-      label: Steps to reproduce
-      description: The exact commands or actions that trigger the bug.
+      label: 复现步骤
+      description: 请列出能够触发问题的准确命令或操作。
       placeholder: |
-        1. Run `...`
+        1. 运行 `...`
         2. ...
-        3. See error
+        3. 出现错误
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Expected behavior
+      label: 预期行为
     validations:
       required: true
   - type: textarea
     id: actual
     attributes:
-      label: Actual behavior
+      label: 实际行为
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: Relevant logs or error output
-      description: Paste any error messages or tracebacks. This is automatically formatted as code.
+      label: 相关日志或错误输出
+      description: 请粘贴错误消息或 traceback；内容会自动按代码格式显示。请先移除 API 密钥等敏感信息。
       render: shell
     validations:
       required: false
